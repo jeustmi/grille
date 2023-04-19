@@ -1,0 +1,139 @@
+#include "calcul_score.hpp"
+
+int i,j;
+
+            //comptage des points, les commentaires indiquent ce dont la fonction a besoin pour marcher (pen = pénalités, poi = points)
+void jeton_j(grille_complète grille, int &poi_tot, int &pen_tot){ //pen + poi
+    poi_tot+=grille.nb[i][j]; //points de la case
+    bool b;
+    b=0;
+    for(int k=i-1;k<i+2;k++){
+        for(int l=j-1;l<j+2;l++){
+            if(0<=k and k<grille.n and 0<=l and l<grille.n and !(k==i and l==j)){
+                if(grille.sl[k][l]=='J'){
+                    b=1; //pas de pénalité si un autre jaune est adjacent
+                }
+            }
+        }
+    }
+    if(b==0){
+        pen_tot+=1;
+    }
+}
+
+void jeton_v(grille_complète &grille, int &poi_tot, int &pen_tot){ //pen + poi + change son propre char pour ne pas recompter la pénalité
+    int a,b;
+    a=1; //compte le nombre de tours de la double boucle et sert à savoir à quelle boucle on est dans un coin et donc quand il ne faut pas compter les points
+    b=0;
+    for(int k=i-1;k<i+2;k++){
+        for(int l=j-1;l<j+2;l++){
+            if(0<=k and k<grille.n and 0<=l and l<grille.n and a!=1 and a!=3 and a!=7 and a!=9){ // (0<=k and k<grille.n and 0<=l and l<grille.n and !(k==i and l==j)) : vérifie qu'il n'y a pas de core dumped, (a!=1 and a!=3 and a!=7 and a!=9) : vérifie qu'on est pas dans un coin
+                poi_tot+=grille.nb[k][l]; //points des cases adjacentes mais pas en diagonale du jeton
+            }
+            ++a;
+        }
+    }
+    for(int k=i-1;k<i+2;k++){
+        for(int l=j-1;l<j+2;l++){
+            if(0<=k and k<grille.n and 0<=l and l<grille.n and !(k==i and l==j)){ // (0<=k and k<grille.n and 0<=l and l<grille.n and !(k==i and l==j)) : vérifie qu'il n'y a pas de core dumped, !(k==i and l==j) :  vérifie qu'on ne compte pas la case sur lequel est le jeton, sinon on aurait une pénalité d'office
+                if(grille.sl[k][l]=='V'){
+                    pen_tot+=1; //pénalité si un jeton vert est adjacent
+                }
+            }
+        }
+    }
+    grille.sl[i][j]='v'; //on change le char de la case car on ne veut pas le recompter plus tard pour les autres pénalités des jetons verts (les variables char et string sont case sensitive)
+}
+
+void jeton_n(grille_complète grille, int &poi_tot){ //poi + a besoin de n
+    if(grille.N<=grille.n){ //s'il y a au plus n jetons noirs:
+        poi_tot+=2*(grille.nb[i][j]-1); //points de la case doublés
+    }
+    else{ //sinon
+        poi_tot+=grille.nb[i][j]-1; //points de la case
+    }
+}
+
+void jeton_r(grille_complète grille, int &poi_tot){ //poi, a besoin de parcourir la grille solution  
+    poi_tot+=-grille.nb[i][j];
+}
+
+void jeton_b(grille_complète grille, int &pen_tot){ //pen, n'a pas besoin d'être appelé à chaque boucle
+    int d;
+    d=0;
+    for(i=0;i<grille.n;++i){
+        for(j=0;j<grille.n;++j){
+            if(grille.sl[i][j]=='B'){
+                if(grille.nb[i][j]<0){ //si le jeton est sur une case négative
+                    d+=1; //la différence augmente de 1
+                }
+                else if(grille.nb[i][j]>0){ //sinon, s'il est sur une case positive
+                    d-=1; //la différence baisse de 1
+                }
+            } //on ne compte pas les cases = 0 car elles sont les deux, on fait donc d+1 puis d-1, donc ça ne sert à rien
+        }
+    }
+    if(d>0){ //si la différence est négative
+        pen_tot+=d; //on ajoute cette différence aux pénalités
+    }
+}
+
+void jeton_o(grille_complète &grille, int &pen_tot){ //pen + change son propre char pour ne pas recompter la pen
+    for(int k=0;k<grille.n;++k){ //parcours de la grille en croix suisse
+        if(k!=i and grille.sl[k][j]=='O'){ //hroizontalement
+            pen_tot+=1; //pénalité si un autre jeton orage sur la ligne
+        }
+        if(k!=j and grille.sl[i][k]=='O'){ //verticalement
+            pen_tot+=1; //pénalité si un autre jeton orange sur la colonne
+        }
+    }
+    for(int k=-std::min(i,j);k<grille.n-std::max(i,j);k++){
+        if(k!=0 and grille.sl[i+k][j+k]=='O'){ //parcours de la grille en diagonale tl:dr
+            pen_tot+=1; //pénalité si un autre jeton orange sur la diagonale
+        }
+    }
+    for(int k=-std::min(i,j);k<grille.n-std::max(i,j);k++){
+        if(k!=0 and grille.sl[i-k][j+k]=='O'){ //parcours de la grille en diagonale dl:tr
+            pen_tot+=1; //pénalité si un autre jeton orange sur la diagonale
+        }
+    }
+    grille.sl[i][j]='o'; //même chose que pour les jetons verts
+}
+
+
+            //cette fonction n'est pas un void mais fait quand même des std::cout périodiquement, il faudra changer ça
+int calcul_score(grille_complète &grille){
+    int poi_tot=0,pen_tot=0; //variables point totaux et pénalités totales
+    char jeton; //sert juste à ne pas réécrire grille[i][j] à chaque fois
+    mat_sl save_grille_sl; //save de la grille pour pouvoir reourner aux valeur initiales car on change certains char en minuscule pour le comptage
+    save_grille_sl=grille.sl;
+    jeton_b(grille,pen_tot);
+    for(i=0;i<grille.n;++i){
+        for(j=0;j<grille.n;++j){
+            jeton=grille.sl[i][j];
+            if(jeton=='J'){
+                jeton_j(grille,poi_tot,pen_tot);
+            }
+            else if(jeton=='V'){
+                jeton_v(grille,poi_tot,pen_tot);
+            }
+            else if(jeton=='N'){
+                jeton_n(grille,poi_tot);
+            }
+            else if(jeton=='O'){
+                jeton_o(grille,pen_tot);
+            }
+            else if(jeton=='R'){
+                jeton_r(grille,poi_tot);
+            }
+            else if(jeton!='B'){
+                std::cout<<"erreur lecture jeton"<<std::endl;
+            }
+        }
+    }
+    std::cout<<pen_tot<<" "<<poi_tot<<std::endl; //check des points et pénalités pour mieux repérer les erreurs
+    poi_tot=poi_tot-grille.p*pen_tot; //calcul du score final
+    grille.sl=save_grille_sl; //réattribution de la grille solution initiale
+    std::cout<<poi_tot<<std::endl;
+    return poi_tot;
+}
