@@ -5,17 +5,21 @@
 using fif=std::ifstream;
 using fof=std::ofstream;
 using ch=std::string;
-using tab_nb=std::array<int,16>;
-using mat_nb=std::array<tab_nb,16>;
-using tab_sl=std::array<char,16>;
-using mat_sl=std::array<tab_sl,16>;
+using tab_nb=std::array<int,32>;
+using mat_nb=std::array<tab_nb,32>;
+using tab_sl=std::array<char,32>;
+using mat_sl=std::array<tab_sl,32>;
+using tab_tri = std::array<int,3>;
+using mat_tri=std::array<tab_tri,1024>;
 int i,j,k,l;
 
 struct grille_complète{ //on fait uen structure contenant toutes les informatiosn pour faciliter l'accès aux données (même si l'on n'a que ramement besoinde tous)
     mat_nb nb; //grille de nombres
     mat_sl sl; //grille de solution
-    int J=0,V=0,N=0,B=0,O=0; //nombre de jeton de chaque couleur de la grille.sl
+    mat_tri vt;
+    int J=0,V=0,N=0,B=0,O=0,R=0; //nombre de jeton de chaque couleur de la grille.sl
     int n,p; //n=taille, p=pénalité
+
 };
 
 void lecture_fichier_nb(ch fic,grille_complète &grille){ //lit un fichier de la forme grille.nb avec n et p en en-tête (entrée)
@@ -92,9 +96,12 @@ void compte_jeton(grille_complète &grille){ //compte le nombre de jeton de chaq
             else if(jeton=='O'){
                 grille.O+=1;
             }
+            else if(jeton=='R'){
+                grille.R+=1;
+            }
         }
     }
-    std::cout<<grille.J<<" "<<grille.V<<" "<<grille.N<<" "<<grille.B<<" "<<grille.O<<std::endl; //simple vérification
+    std::cout<<" J: "<<grille.J<<" V: "<<grille.V<<" N: "<<grille.N<<" B: "<<grille.B<<" O: "<<grille.O<<" R: "<<grille.R<<std::endl; //simple vérification
 }
 
             //comptage des points, les commentaires indiquent ce dont la fonction a besoin pour marcher (pen = pénalités, poi = points)
@@ -227,6 +234,45 @@ int calcul_score(grille_complète &grille){
     return poi_tot;
 }
 
+void init_tab_tri(grille_complète & g){
+    k=0;
+    for(i=0; i<g.n ; ++i){
+        for(j=0; j<g.n ; ++j){
+            g.vt[k][0]=g.nb[i][j];
+            g.vt[k][1]=i;
+            g.vt[k][2]=j;
+            ++k;
+        }
+    }
+    
+}
+void affiche_tab_tri(grille_complète g){
+    k=0;
+    for(i=0; i<g.n ; ++i){
+        for(j=0; j<g.n ; ++j){
+            std::cout<<"valeur : "<<g.vt[k][0]<<" i :"<<g.vt[k][1]<<" j :"<<g.vt[k][2]<<std::endl;
+            ++k;
+        }
+    }
+    
+}
+
+void tri_selection(grille_complète & g,int n){
+    tab_tri aux;
+    for(i=0; i<n; ++i){
+        int maxi = 0;
+        for(j=0; j<n-i; j++){
+            if (g.vt[maxi][0]<g.vt[j][0]){
+                maxi = j;
+            }
+        }
+        aux = g.vt[maxi];
+        g.vt[maxi] =  g.vt[n-1-i];
+        g.vt[n-1-i] =  aux;
+    }
+
+}
+    
 
 int main(){
     grille_complète grille;
@@ -262,5 +308,10 @@ int main(){
     else{
         std::cout<<"erreur à l'écriture du fichier"<<std::endl;
     }
+    init_tab_tri(grille);
+    affiche_tab_tri(grille);
+    std::cout<<std::endl<<std::endl<<std::endl;
+    tri_selection(grille,grille.n*grille.n);
+    affiche_tab_tri(grille);
     return 0;
 }
