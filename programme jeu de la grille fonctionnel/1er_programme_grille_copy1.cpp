@@ -10,7 +10,7 @@ using mat_nb=std::array<tab_nb,32>;
 using tab_sl=std::array<char,32>;
 using mat_sl=std::array<tab_sl,32>;
 using tab_tri = std::array<int,3>;
-using mat_tri=std::array<tab_tri,1024>;
+using mat_tri=std::array<tab_tri,1024>;//matrice qui stoque les valeur et leur indice dans un tableau(tab_tri)  
 int i,j,k,l;
 
 struct grille_complète{ //on fait uen structure contenant toutes les informatiosn pour faciliter l'accès aux données (même si l'on n'a que ramement besoinde tous)
@@ -234,10 +234,10 @@ int calcul_score(grille_complète &grille){
     return poi_tot;
 }
 
-void init_tab_tri(grille_complète & g){
-    k=0;
-    for(i=0; i<g.n ; ++i){
-        for(j=0; j<g.n ; ++j){
+void init_tab_tri(grille_complète & g){ //initialise la matrice qui contien les valeur et leur indice
+    int k=0;
+    for(int i=0; i<g.n ; ++i){
+        for(int j=0; j<g.n ; ++j){
             g.vt[k][0]=g.nb[i][j];
             g.vt[k][1]=i;
             g.vt[k][2]=j;
@@ -246,10 +246,10 @@ void init_tab_tri(grille_complète & g){
     }
     
 }
-void affiche_tab_tri(grille_complète g){
-    k=0;
-    for(i=0; i<g.n ; ++i){
-        for(j=0; j<g.n ; ++j){
+void affiche_tab_tri(grille_complète g){ //affiche les valeur de la grille et leurs indice
+    int k=0;
+    for(int i=0; i<g.n ; ++i){
+        for(int j=0; j<g.n ; ++j){
             std::cout<<"valeur : "<<g.vt[k][0]<<" i :"<<g.vt[k][1]<<" j :"<<g.vt[k][2]<<std::endl;
             ++k;
         }
@@ -257,11 +257,11 @@ void affiche_tab_tri(grille_complète g){
     
 }
 
-void tri_selection(grille_complète & g,int n){
+void tri_selection(grille_complète & g,int n){  //tri les valeur de la grille
     tab_tri aux;
-    for(i=0; i<n; ++i){
+    for(int i=0; i<n; ++i){
         int maxi = 0;
-        for(j=0; j<n-i; j++){
+        for(int j=0; j<n-i; j++){
             if (g.vt[maxi][0]<g.vt[j][0]){
                 maxi = j;
             }
@@ -272,6 +272,59 @@ void tri_selection(grille_complète & g,int n){
     }
 
 }
+
+void init_sl(grille_complète & g){//inite la grille de solution avec des '1'
+    for(int i=0; i<g.n ; ++i){
+        for(int j=0; j<g.n ; ++j){
+            g.sl[i][j]='1';
+            
+        }
+    }
+}
+
+void placePionRouge(grille_complète & g){//place le pion rouge sur la case avec la plus petite valeur
+    g.sl[g.vt[0][1]][g.vt[0][2]]='R';
+}
+
+void place_noir(grille_complète & g){
+    int nn=0; //nn le nombre de noire placer
+    int nt=0;
+    int poi_tot,pen_tot,i,j;
+
+    int t=g.n*g.n;
+    bool n_placer = true; //est vrais tant que tout les noir ne sont pas placer correctement
+    while (n_placer and nt<t){
+        if(g.vt[t-1-nt][0]>1){
+            poi_tot=0;
+            pen_tot=0;
+            i=g.vt[t-1-nt][1];
+            j=g.vt[t-1-nt][2];
+            if((2*(g.vt[t-1-nt][0]-1)>poi_tot-pen_tot)){
+                if(g.sl[i][j]=='1'){
+                    g.sl[i][j]='N';
+                    ++nn;
+                }
+            }
+            else{
+                if(g.sl[i][j]=='1'){
+                    g.sl[i][j]='V';
+                }
+            }
+            if(nn==g.n){
+                n_placer = false;
+            } 
+        }
+        else{
+            n_placer = false;
+        }
+        
+        ++nt;
+    }
+    
+    
+    
+}
+
     
 
 int main(){
@@ -313,5 +366,10 @@ int main(){
     std::cout<<std::endl<<std::endl<<std::endl;
     tri_selection(grille,grille.n*grille.n);
     affiche_tab_tri(grille);
+    init_sl(grille);
+    placePionRouge(grille);
+    affichage_mat_sl(grille.sl,grille.n);
+    place_noir(grille);
+    affichage_mat_sl(grille.sl,grille.n);
     return 0;
 }
