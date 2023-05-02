@@ -7,11 +7,7 @@
 #include "tab_tri.hpp"
 #include "place_pion.hpp"
 
-<<<<<<< HEAD
-//g++ 1er_programme_grille_test.cpp lecture_fichier.cpp aff_mat.cpp compte_jetons.cpp calcul_score.cpp struct.cpp ecriture_fichier.cpp tab_tri.cpp plh1.cpp -o prog.out
-=======
 //g++ 1er_programme_grille_test.cpp lecture_fichier.cpp aff_mat.cpp compte_jetons.cpp calcul_score.cpp struct.cpp ecriture_fichier.cpp tab_tri.cpp place_pion.cpp -o prog.out
->>>>>>> edb7a35b64d9593b7f9559354e2058729d6a0480
 
 
 int main(){

@@ -17,7 +17,7 @@ void jeton_j(grille_complete grille, int &poi_tot, int &pen_tot){ //pen + poi
         }
     }
     if(b==0){
-        pen_tot+=1;
+        pen_tot+=grille.p;
     }
 }
 
@@ -37,7 +37,7 @@ void jeton_v(grille_complete &grille, int &poi_tot, int &pen_tot){ //pen + poi +
         for(int l=j-1;l<j+2;l++){
             if(0<=k and k<grille.n and 0<=l and l<grille.n and !(k==i and l==j)){ // (0<=k and k<grille.n and 0<=l and l<grille.n and !(k==i and l==j)) : vérifie qu'il n'y a pas de core dumped, !(k==i and l==j) :  vérifie qu'on ne compte pas la case sur lequel est le jeton, sinon on aurait une pénalité d'office
                 if(grille.sl[k][l]=='V'){
-                    pen_tot+=g.p; //pénalité si un jeton vert est adjacent
+                    pen_tot+=grille.p; //pénalité si un jeton vert est adjacent
                 }
             }
         }
@@ -73,27 +73,27 @@ void jeton_b(grille_complete grille, int &pen_tot){ //pen, n'a pas besoin d'êtr
         }
     }
     if(d>0){ //si la différence est négative
-        pen_tot+=d; //on ajoute cette différence aux pénalités
+        pen_tot+=d*grille.p; //on ajoute cette différence aux pénalités
     }
 }
 
 void jeton_o(grille_complete &grille, int &pen_tot){ //pen + change son propre char pour ne pas recompter la pen
     for(int k=0;k<grille.n;++k){ //parcours de la grille en croix suisse
         if(k!=i and grille.sl[k][j]=='O'){ //hroizontalement
-            pen_tot+=1; //pénalité si un autre jeton orage sur la ligne
+            pen_tot+=grille.p; //pénalité si un autre jeton orage sur la ligne
         }
         if(k!=j and grille.sl[i][k]=='O'){ //verticalement
-            pen_tot+=1; //pénalité si un autre jeton orange sur la colonne
+            pen_tot+=grille.p; //pénalité si un autre jeton orange sur la colonne
         }
     }
     for(int k=-std::min(i,j);k<grille.n-std::max(i,j);k++){
         if(k!=0 and grille.sl[i+k][j+k]=='O'){ //parcours de la grille en diagonale tl:dr
-            pen_tot+=1; //pénalité si un autre jeton orange sur la diagonale
+            pen_tot+=grille.p; //pénalité si un autre jeton orange sur la diagonale
         }
     }
     for(int k=-std::min(i,j);k<grille.n-std::max(i,j);k++){
         if(k!=0 and grille.sl[i-k][j+k]=='O'){ //parcours de la grille en diagonale dl:tr
-            pen_tot+=1; //pénalité si un autre jeton orange sur la diagonale
+            pen_tot+=grille.p; //pénalité si un autre jeton orange sur la diagonale
         }
     } 
 }
@@ -132,7 +132,7 @@ int calcul_score(grille_complete &grille){
         }
     }
     std::cout<<pen_tot<<" "<<poi_tot<<std::endl; //check des points et pénalités pour mieux repérer les erreurs
-    poi_tot=poi_tot-grille.p*pen_tot; //calcul du score final
+    poi_tot=poi_tot-pen_tot; //calcul du score final
     grille.sl=save_grille_sl; //réattribution de la grille solution initiale
     std::cout<<poi_tot<<std::endl;
     return poi_tot;
