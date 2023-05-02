@@ -1,6 +1,8 @@
 #include "place_pion.hpp"
 #include "calcul_score.hpp"
 
+#include "tab_tri.hpp"
+
 void init_sl(grille_complete & g){//init la grille de solution avec des '1'
     for(int i=0; i<g.n ; ++i){
         for(int j=0; j<g.n ; ++j){
@@ -15,8 +17,9 @@ void placePionRouge(grille_complete & g){//place le pion rouge sur la case avec 
 }
 
 void place_noir(grille_complete & g){
-    mat_tri vert_t;
-    int abc=0,poi_v,serarien;
+    mat_tri vert_mat;
+    tab_tri vert_tab;
+    int vn=0,poi_v,serarien;
     int nn=0; //nombre de noirs placés
     int nt=0;
     int poi_tot,pen_tot,i,j;
@@ -40,10 +43,20 @@ void place_noir(grille_complete & g){
                     g.sl[i][j]='V';
                 }
                 poi_v=0;
-                jeton_v(g,poi_v,serarien);
-                vert_t[abc][0]=poi_v;
-                vert_t[abc][1]=i;
-                vert_t[abc][2]=j;
+                jeton_v(g,poi_v,serarien,i,j);
+                vert_tab={poi_v,i,j};
+                ++vn;
+                std::cout<<vn<<std::endl;
+                int k;
+                k=vn-1;
+                while ((k > 0) and (vert_mat[k-1][0] > vert_tab[0])){
+                    vert_mat[k] = vert_mat[k-1];
+                    --k;
+                }
+                vert_mat[k] = vert_tab;
+                /*for(int l=0;l<vn;++l){
+                    std::cout<<"val : "<<vert_mat[l][0]<<"      i : "<<vert_mat[l][1]<<"     j : "<<vert_mat[l][2]<<std::endl;
+                }*/
             }
             if(nn==g.n){
                 n_placer = false;
@@ -52,7 +65,6 @@ void place_noir(grille_complete & g){
         else{
             n_placer = false;
         }
-        
         ++nt;
     }
 }
