@@ -52,11 +52,15 @@ int main(){
     place_noir(grille);
     affichage_mat_sl(grille.sl,grille.n);
     std::cout<<std::endl<<std::endl<<std::endl;
+    place_bleu(grille);
+    affichage_mat_sl(grille.sl,grille.n);
+    std::cout<<std::endl<<std::endl<<std::endl;
     place_orange(grille);
     affichage_mat_sl(grille.sl,grille.n);
     std::cout<<std::endl<<std::endl<<std::endl;
     place_jaune(grille);
     affichage_mat_sl(grille.sl,grille.n);
     std::cout<<std::endl<<std::endl<<std::endl;
+    
     return 0;
 }

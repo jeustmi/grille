@@ -52,12 +52,13 @@ void place_noir(grille_complete & g){
     }
     
 }
+
 void place_orange(grille_complete & g){
     int nt=1;
     int pen_tot_o,poi_tot_v,pen_tot_v,i,j,p_v;
     int t=g.n*g.n;
-    bool n_placer = true; //est vrais tant que tout les noir ne sont pas placer correctement
-    while (n_placer and nt<t){
+    bool o_placer = true; //est vrais tant que tout les noir ne sont pas placer correctement
+    while (o_placer and nt<t){
         if(g.vt[nt][0]<0){
             poi_tot_v=0;
             pen_tot_v=0;
@@ -65,7 +66,7 @@ void place_orange(grille_complete & g){
             i=g.vt[nt][1];
             j=g.vt[nt][2];
             jeton_v(g,poi_tot_v,pen_tot_v,i,j);
-            jeton_o(g,pen_tot_o,i,jZ);
+            jeton_o(g,pen_tot_o,i,j);
             p_v=poi_tot_v-(pen_tot_v);
             if((pen_tot_o==0 and (pen_tot_o)<=p_v)){
                 if(g.sl[i][j]=='1'){
@@ -79,19 +80,80 @@ void place_orange(grille_complete & g){
             }
         }
         else{
-            n_placer = false;
+            o_placer = false;
         }
         
         ++nt;
     }
 }
+
+int recherche_min_positif(grille_complete g){
+    int k=0;
+    bool trouver=false;
+    while(not trouver){
+        if(g.vt[k][0]>0){
+            trouver=true;
+        }
+        ++k;
+    }
+    return k;
+}
+
+void place_bleu(grille_complete & g){
+    int nt=1;
+    int vb,poi_tot1,pen_tot1,poi_tot2,pen_tot2,i1,j1,i2,j2,k;
+    
+    int t=g.n*g.n;
+    bool b_placer = true;
+    
+    k=recherche_min_positif(g);
+    while (b_placer and nt!=k){
+        poi_tot1=0;
+        pen_tot1=0;
+        i1=g.vt[nt][1];
+        j1=g.vt[nt][2];
+        jeton_v(g,poi_tot1,pen_tot1,i1,j1);
+        poi_tot2=0;
+        pen_tot2=0;
+        i2=g.vt[k-1+nt][1];
+        j2=g.vt[k-1+nt][2];
+        jeton_v(g,poi_tot2,pen_tot2,i2,j2);
+        vb=g.vt[k-1+nt][0]-g.vt[nt][0];
+        std::cout<<"vb :"<<vb<<std::endl;
+        if(vb>=0 and vb>=(poi_tot1-pen_tot1)+(poi_tot2-pen_tot2)){
+            std::cout<<"afqb";
+            if(g.sl[i1][j1]=='1' and g.sl[i2][j2]=='1'){
+                g.sl[i1][j1]='B';
+                g.sl[i2][j2]='B';
+            }
+        }
+        else if (vb>0) {
+            if(vb<poi_tot1-pen_tot1){
+                if(g.sl[i1][j1]=='1'){
+                g.sl[i1][j1]='V';
+                }
+            }
+            else if(vb<poi_tot2-pen_tot2){
+                if(g.sl[i2][j2]=='1'){
+                g.sl[i2][j2]='V';
+                }
+            }
+        }
+        else{
+            b_placer = false;
+        }
+        
+        ++nt;
+    }
+}
+
 void place_jaune(grille_complete & g){
     int nt=0;
     int poi_tot_j,pen_tot_j,poi_tot_v,pen_tot_v,i,j;
 
     int t=g.n*g.n;
-    bool n_placer = true; //est vrais tant que tout les noir ne sont pas placer correctement
-    while (n_placer and nt<t){
+    bool j_placer = true; //est vrais tant que tout les noir ne sont pas placer correctement
+    while (j_placer and nt<t){
         if(g.vt[t-1-nt][0]>0){
             poi_tot_v=0;
             pen_tot_v=0;
@@ -113,7 +175,7 @@ void place_jaune(grille_complete & g){
             }
         }
         else{
-            n_placer = false;
+            j_placer = false;
         }
         
         ++nt;

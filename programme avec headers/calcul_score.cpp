@@ -27,7 +27,6 @@ void jeton_v(grille_complete &grille, int & poi_tot, int & pen_tot, int i , int 
     b=0;
     for(int k=i-1;k<i+2;k++){
         for(int l=j-1;l<j+2;l++){
-            std::cout<<"k:"<<k<<" l:"<<l<<std::endl;
             if(0<=k and k<grille.n and 0<=l and l<grille.n and a!=1 and a!=3 and a!=7 and a!=9){ // (0<=k and k<grille.n and 0<=l and l<grille.n and !(k==i and l==j)) : vérifie qu'il n'y a pas de core dumped, (a!=1 and a!=3 and a!=7 and a!=9) : vérifie qu'on est pas dans un coin
                 poi_tot+=grille.nb[k][l]; //points des cases adjacentes mais pas en diagonale du jeton
                 
