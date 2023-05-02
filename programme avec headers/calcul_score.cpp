@@ -37,12 +37,11 @@ void jeton_v(grille_complete &grille, int &poi_tot, int &pen_tot){ //pen + poi +
         for(int l=j-1;l<j+2;l++){
             if(0<=k and k<grille.n and 0<=l and l<grille.n and !(k==i and l==j)){ // (0<=k and k<grille.n and 0<=l and l<grille.n and !(k==i and l==j)) : vérifie qu'il n'y a pas de core dumped, !(k==i and l==j) :  vérifie qu'on ne compte pas la case sur lequel est le jeton, sinon on aurait une pénalité d'office
                 if(grille.sl[k][l]=='V'){
-                    pen_tot+=1; //pénalité si un jeton vert est adjacent
+                    pen_tot+=g.p; //pénalité si un jeton vert est adjacent
                 }
             }
         }
     }
-    grille.sl[i][j]='v'; //on change le char de la case car on ne veut pas le recompter plus tard pour les autres pénalités des jetons verts (les variables char et string sont case sensitive)
 }
 
 void jeton_n(grille_complete grille, int &poi_tot){ //poi + a besoin de n
@@ -96,8 +95,7 @@ void jeton_o(grille_complete &grille, int &pen_tot){ //pen + change son propre c
         if(k!=0 and grille.sl[i-k][j+k]=='O'){ //parcours de la grille en diagonale dl:tr
             pen_tot+=1; //pénalité si un autre jeton orange sur la diagonale
         }
-    }
-    grille.sl[i][j]='o'; //même chose que pour les jetons verts
+    } 
 }
 
 
@@ -116,12 +114,14 @@ int calcul_score(grille_complete &grille){
             }
             else if(jeton=='V'){
                 jeton_v(grille,poi_tot,pen_tot);
+                grille.sl[i][j]='v'; //on change le char de la case car on ne veut pas le recompter plus tard pour les autres pénalités des jetons verts (les variables char et string sont case sensitive)
             }
             else if(jeton=='N'){
                 jeton_n(grille,poi_tot);
             }
             else if(jeton=='O'){
                 jeton_o(grille,pen_tot);
+                grille.sl[i][j]='o'; //même chose que pour les jetons verts
             }
             else if(jeton=='R'){
                 jeton_r(grille,poi_tot);

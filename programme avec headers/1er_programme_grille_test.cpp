@@ -7,7 +7,7 @@
 #include "tab_tri.hpp"
 #include "plh.hpp"
 
-//g++ 1er_programme_grille_test.cpp lecture_fichier.cpp aff_mat.cpp compte_jetons.cpp calcul_score.cpp struct.cpp ecriture_fichier.cpp tab_tri.cpp plh.cpp -o prog.out
+//g++ 1er_programme_grille_test.cpp lecture_fichier.cpp aff_mat.cpp compte_jetons.cpp calcul_score.cpp struct.cpp ecriture_fichier.cpp tab_tri.cpp plh1.cpp -o prog.out
 
 
 int main(){
