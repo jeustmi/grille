@@ -27,7 +27,8 @@ void place_noir(grille_complete & g){
             pen_tot=0;
             i=g.vt[t-1-nt][1];
             j=g.vt[t-1-nt][2];
-            jeton_v(g,poi_tot,pen_tot);
+            jeton_v(g,poi_tot,pen_tot,i,j);
+            //std::cout<<"pen_tot"<<pen_tot<<" poi_tot"<<poi_tot<<std::endl;
             if((2*(g.vt[t-1-nt][0]-1)>poi_tot-(pen_tot))){
                 if(g.sl[i][j]=='1'){
                     g.sl[i][j]='N';
@@ -63,11 +64,10 @@ void place_orange(grille_complete & g){
             pen_tot_o=0;
             i=g.vt[nt][1];
             j=g.vt[nt][2];
-            jeton_v(g,poi_tot_v,pen_tot_v);
-            jeton_o(g,pen_tot_o);
+            jeton_v(g,poi_tot_v,pen_tot_v,i,j);
+            jeton_o(g,pen_tot_o,i,jZ);
             p_v=poi_tot_v-(pen_tot_v);
-            std::cout<<"pen"<<pen_tot_o<<" p_v"<<p_v<<std::endl;
-            if((pen_tot_o==0 and (pen_tot_o)<p_v)){
+            if((pen_tot_o==0 and (pen_tot_o)<=p_v)){
                 if(g.sl[i][j]=='1'){
                     g.sl[i][j]='O';
                 }
@@ -99,8 +99,8 @@ void place_jaune(grille_complete & g){
             pen_tot_j=0;
             i=g.vt[t-1-nt][1];
             j=g.vt[t-1-nt][2];
-            jeton_v(g,poi_tot_v,pen_tot_v);
-            jeton_j(g,poi_tot_j,pen_tot_j);
+            jeton_v(g,poi_tot_v,pen_tot_v,i,j);
+            jeton_j(g,poi_tot_j,pen_tot_j,i,j);
             if((poi_tot_j-pen_tot_j>poi_tot_v-pen_tot_v)){
                 if(g.sl[i][j]=='1'){
                     g.sl[i][j]='J';
