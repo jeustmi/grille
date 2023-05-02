@@ -13,7 +13,7 @@ using tab_tri = std::array<int,3>;
 using mat_tri=std::array<tab_tri,1024>;//matrice qui stoque les valeur et leur indice dans un tableau(tab_tri)  
 int i,j,k,l;
 
-struct grille_complète{ //on fait uen structure contenant toutes les informatiosn pour faciliter l'accès aux données (même si l'on n'a que ramement besoinde tous)
+struct grille_complete{ //on fait uen structure contenant toutes les informatiosn pour faciliter l'accès aux données (même si l'on n'a que ramement besoinde tous)
     mat_nb nb; //grille de nombres
     mat_sl sl; //grille de solution
     mat_tri vt;
@@ -22,7 +22,7 @@ struct grille_complète{ //on fait uen structure contenant toutes les informatio
 
 };
 
-void lecture_fichier_nb(ch fic,grille_complète &grille){ //lit un fichier de la forme grille.nb avec n et p en en-tête (entrée)
+void lecture_fichier_nb(ch fic,grille_complete &grille){ //lit un fichier de la forme grille.nb avec n et p en en-tête (entrée)
     fif grille_fichier(fic);
     int e;
     if(grille_fichier){
@@ -42,7 +42,7 @@ void lecture_fichier_nb(ch fic,grille_complète &grille){ //lit un fichier de la
     }
 }
 
-void lecture_fichier_sl(ch fic,grille_complète &grille){ //lit un fichier de la forme grille.sl, avec seulement les numéros (sortie dans le programme final, entrée ici)
+void lecture_fichier_sl(ch fic,grille_complete &grille){ //lit un fichier de la forme grille.sl, avec seulement les numéros (sortie dans le programme final, entrée ici)
     fif grille_fichier(fic);
     char e;
     if(grille_fichier){
@@ -76,7 +76,7 @@ void affichage_mat_sl(mat_sl grille,int n){ //affiche une matrice de char
     }
 }
 
-void compte_jeton(grille_complète &grille){ //compte le nombre de jeton de chaque couleur d'une grille solution (sert pour compter les points des noirs, autant le faire pour tout le monde)
+void compte_jeton(grille_complete &grille){ //compte le nombre de jeton de chaque couleur d'une grille solution (sert pour compter les points des noirs, autant le faire pour tout le monde)
     char jeton;
     for(i=0;i<grille.n;++i){
         for(j=0;j<grille.n;++j){
@@ -105,7 +105,7 @@ void compte_jeton(grille_complète &grille){ //compte le nombre de jeton de chaq
 }
 
             //comptage des points, les commentaires indiquent ce dont la fonction a besoin pour marcher (pen = pénalités, poi = points)
-void jeton_j(grille_complète grille, int &poi_tot, int &pen_tot){ //pen + poi
+void jeton_j(grille_complete grille, int &poi_tot, int &pen_tot){ //pen + poi
     poi_tot+=grille.nb[i][j]; //points de la case
     bool b;
     b=0;
@@ -122,7 +122,7 @@ void jeton_j(grille_complète grille, int &poi_tot, int &pen_tot){ //pen + poi
         pen_tot+=1;
     }
 }
-void jeton_v(grille_complète &grille, int &poi_tot, int &pen_tot){ //pen + poi + change son propre char pour ne pas recompter la pénalité
+void jeton_v(grille_complete &grille, int &poi_tot, int &pen_tot){ //pen + poi + change son propre char pour ne pas recompter la pénalité
     int a,b;
     a=1; //compte le nombre de tours de la double boucle et sert à savoir à quelle boucle on est dans un coin et donc quand il ne faut pas compter les points
     b=0;
@@ -145,7 +145,7 @@ void jeton_v(grille_complète &grille, int &poi_tot, int &pen_tot){ //pen + poi 
     }
     grille.sl[i][j]='v'; //on change le char de la case car on ne veut pas le recompter plus tard pour les autres pénalités des jetons verts (les variables char et string sont case sensitive)
 }
-void jeton_n(grille_complète grille, int &poi_tot){ //poi + a besoin de n
+void jeton_n(grille_complete grille, int &poi_tot){ //poi + a besoin de n
     if(grille.N<=grille.n){ //s'il y a au plus n jetons noirs:
         poi_tot+=2*(grille.nb[i][j]-1); //points de la case doublés
     }
@@ -153,7 +153,7 @@ void jeton_n(grille_complète grille, int &poi_tot){ //poi + a besoin de n
         poi_tot+=grille.nb[i][j]-1; //points de la case
     }
 }
-void jeton_b(grille_complète grille, int &pen_tot){ //pen, n'a pas besoin d'être appelé à chaque boucle
+void jeton_b(grille_complete grille, int &pen_tot){ //pen, n'a pas besoin d'être appelé à chaque boucle
     int d;
     d=0;
     for(i=0;i<grille.n;++i){
@@ -172,7 +172,7 @@ void jeton_b(grille_complète grille, int &pen_tot){ //pen, n'a pas besoin d'êt
         pen_tot+=d; //on ajoute cette différence aux pénalités
     }
 }
-void jeton_o(grille_complète &grille, int &pen_tot){ //pen + change son propre char pour ne pas recompter la pen
+void jeton_o(grille_complete &grille, int &pen_tot){ //pen + change son propre char pour ne pas recompter la pen
     for(k=0;k<grille.n;++k){ //parcours de la grille en croix suisse
         if(k!=i and grille.sl[k][j]=='O'){ //hroizontalement
             pen_tot+=1; //pénalité si un autre jeton orage sur la ligne
@@ -193,12 +193,12 @@ void jeton_o(grille_complète &grille, int &pen_tot){ //pen + change son propre 
     }
     grille.sl[i][j]='o'; //même chose que pour les jetons verts
 }
-void jeton_r(grille_complète grille, int &poi_tot){ //poi, a besoin de parcourir la grille solution  
+void jeton_r(grille_complete grille, int &poi_tot){ //poi, a besoin de parcourir la grille solution  
     poi_tot+=-grille.nb[i][j];
 }
 
             //cette fonction n'est pas un void mais fait quand même des std::cout périodiquement, il faudra changer ça
-int calcul_score(grille_complète &grille){
+int calcul_score(grille_complete &grille){
     int poi_tot=0,pen_tot=0; //variables point totaux et pénalités totales
     char jeton; //sert juste à ne pas réécrire grille[i][j] à chaque fois
     mat_sl save_grille_sl; //save de la grille pour pouvoir reourner aux valeur initiales car on change certains char en minuscule pour le comptage
@@ -234,7 +234,7 @@ int calcul_score(grille_complète &grille){
     return poi_tot;
 }
 
-void init_tab_tri(grille_complète & g){ //initialise la matrice qui contien les valeur et leur indice
+void init_tab_tri(grille_complete & g){ //initialise la matrice qui contien les valeur et leur indice
     int k=0;
     for(int i=0; i<g.n ; ++i){
         for(int j=0; j<g.n ; ++j){
@@ -246,7 +246,7 @@ void init_tab_tri(grille_complète & g){ //initialise la matrice qui contien les
     }
     
 }
-void affiche_tab_tri(grille_complète g){ //affiche les valeur de la grille et leurs indice
+void affiche_tab_tri(grille_complete g){ //affiche les valeur de la grille et leurs indice
     int k=0;
     for(int i=0; i<g.n ; ++i){
         for(int j=0; j<g.n ; ++j){
@@ -257,7 +257,7 @@ void affiche_tab_tri(grille_complète g){ //affiche les valeur de la grille et l
     
 }
 
-void tri_selection(grille_complète & g,int n){  //tri les valeur de la grille
+void tri_selection(grille_complete & g,int n){  //tri les valeur de la grille
     tab_tri aux;
     for(int i=0; i<n; ++i){
         int maxi = 0;
@@ -273,7 +273,7 @@ void tri_selection(grille_complète & g,int n){  //tri les valeur de la grille
 
 }
 
-void init_sl(grille_complète & g){//inite la grille de solution avec des '1'
+void init_sl(grille_complete & g){//inite la grille de solution avec des '1'
     for(int i=0; i<g.n ; ++i){
         for(int j=0; j<g.n ; ++j){
             g.sl[i][j]='1';
@@ -282,11 +282,11 @@ void init_sl(grille_complète & g){//inite la grille de solution avec des '1'
     }
 }
 
-void placePionRouge(grille_complète & g){//place le pion rouge sur la case avec la plus petite valeur
+void placePionRouge(grille_complete & g){//place le pion rouge sur la case avec la plus petite valeur
     g.sl[g.vt[0][1]][g.vt[0][2]]='R';
 }
 
-void place_noir(grille_complète & g){
+void place_noir(grille_complete & g){
     int nn=0; //nn le nombre de noire placer
     int nt=0;
     int poi_tot,pen_tot,i,j;
@@ -320,16 +320,13 @@ void place_noir(grille_complète & g){
         
         ++nt;
     }
-    
-    
-    
 }
 
-    
 
 int main(){
-    grille_complète grille;
+    grille_complete grille;
     ch taille_grille,lettre_grille,numero_test;
+    ch fol="fic/";
     ch fic="probleme_",fic_nb,fic_sl; //les fichiers d'entrée, il faudra demander la grille de nombres au début du programme final avec un std::cin
     std::cout<<"rentrez la taille de la grille du fichier moodle (n1, un entier naturel) : ";
     std::cin>>taille_grille;
@@ -337,8 +334,8 @@ int main(){
     std::cin>>lettre_grille;
     std::cout<<"rentrez le numero du test actuel (n2, un entier naturel) : ";
     std::cin>>numero_test;
-    fic_nb=fic+taille_grille+"_"+lettre_grille+".txt";
-    fic_sl="sl_"+fic+taille_grille+"_"+lettre_grille+"_"+numero_test+".txt";
+    fic_nb=fol+fic+taille_grille+"_"+lettre_grille+".txt";
+    fic_sl=fol+"sl_"+fic+taille_grille+"_"+lettre_grille+"_"+numero_test+".txt";
     std::cout<<fic<<" "<<fic_nb<<" "<<fic_sl<<std::endl;
     lecture_fichier_nb(fic_nb,grille);
     lecture_fichier_sl(fic_sl,grille);
@@ -347,7 +344,7 @@ int main(){
     compte_jeton(grille);
     //std::cout<<calcul_score(grille)<<std::endl; //peut être mis en commentaire car on doit de toute façon lancer le programme à l'écriture du fichier solution
     ch fic_sl_fin;
-    fic_sl_fin="sl_"+fic+taille_grille+"_"+lettre_grille+"_"+numero_test+"_final.txt";
+    fic_sl_fin=fol+"sl_"+fic+taille_grille+"_"+lettre_grille+"_"+numero_test+"_final.txt";
     fof sol(fic_sl_fin); //recrée un fichier solution, avec cette fois-ci le score à la fin, comme attendu
     if(sol){
         for(i=0;i<grille.n;++i){

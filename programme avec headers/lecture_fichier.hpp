@@ -7,4 +7,5 @@ using fif=std::ifstream;
 using fof=std::ofstream;
 using ch=std::string;
 
-void écriture_fichier_solution(grille_complète grille, ch fic);
+void lecture_fichier_nb(ch fic,grille_complete &grille);
+void lecture_fichier_sl(ch fic,grille_complete &grille);

@@ -1,7 +1,7 @@
 #include "ecriture_fichier.hpp"
 #include "calcul_score.hpp"
 
-void écriture_fichier_solution(grille_complète grille, ch fic){
+void écriture_fichier_solution(grille_complete grille, ch fic){
     fof sol(fic); //recrée un fichier solution, avec cette fois-ci le score à la fin, comme attendu
     if(sol){
         for(int i=0;i<grille.n;++i){

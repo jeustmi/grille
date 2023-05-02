@@ -3,7 +3,7 @@
 int i,j;
 
             //comptage des points, les commentaires indiquent ce dont la fonction a besoin pour marcher (pen = pénalités, poi = points)
-void jeton_j(grille_complète grille, int &poi_tot, int &pen_tot){ //pen + poi
+void jeton_j(grille_complete grille, int &poi_tot, int &pen_tot){ //pen + poi
     poi_tot+=grille.nb[i][j]; //points de la case
     bool b;
     b=0;
@@ -21,7 +21,7 @@ void jeton_j(grille_complète grille, int &poi_tot, int &pen_tot){ //pen + poi
     }
 }
 
-void jeton_v(grille_complète &grille, int &poi_tot, int &pen_tot){ //pen + poi + change son propre char pour ne pas recompter la pénalité
+void jeton_v(grille_complete &grille, int &poi_tot, int &pen_tot){ //pen + poi + change son propre char pour ne pas recompter la pénalité
     int a,b;
     a=1; //compte le nombre de tours de la double boucle et sert à savoir à quelle boucle on est dans un coin et donc quand il ne faut pas compter les points
     b=0;
@@ -45,7 +45,7 @@ void jeton_v(grille_complète &grille, int &poi_tot, int &pen_tot){ //pen + poi 
     grille.sl[i][j]='v'; //on change le char de la case car on ne veut pas le recompter plus tard pour les autres pénalités des jetons verts (les variables char et string sont case sensitive)
 }
 
-void jeton_n(grille_complète grille, int &poi_tot){ //poi + a besoin de n
+void jeton_n(grille_complete grille, int &poi_tot){ //poi + a besoin de n
     if(grille.N<=grille.n){ //s'il y a au plus n jetons noirs:
         poi_tot+=2*(grille.nb[i][j]-1); //points de la case doublés
     }
@@ -54,11 +54,11 @@ void jeton_n(grille_complète grille, int &poi_tot){ //poi + a besoin de n
     }
 }
 
-void jeton_r(grille_complète grille, int &poi_tot){ //poi, a besoin de parcourir la grille solution  
+void jeton_r(grille_complete grille, int &poi_tot){ //poi, a besoin de parcourir la grille solution  
     poi_tot+=-grille.nb[i][j];
 }
 
-void jeton_b(grille_complète grille, int &pen_tot){ //pen, n'a pas besoin d'être appelé à chaque boucle
+void jeton_b(grille_complete grille, int &pen_tot){ //pen, n'a pas besoin d'être appelé à chaque boucle
     int d;
     d=0;
     for(i=0;i<grille.n;++i){
@@ -78,7 +78,7 @@ void jeton_b(grille_complète grille, int &pen_tot){ //pen, n'a pas besoin d'êt
     }
 }
 
-void jeton_o(grille_complète &grille, int &pen_tot){ //pen + change son propre char pour ne pas recompter la pen
+void jeton_o(grille_complete &grille, int &pen_tot){ //pen + change son propre char pour ne pas recompter la pen
     for(int k=0;k<grille.n;++k){ //parcours de la grille en croix suisse
         if(k!=i and grille.sl[k][j]=='O'){ //hroizontalement
             pen_tot+=1; //pénalité si un autre jeton orage sur la ligne
@@ -102,7 +102,7 @@ void jeton_o(grille_complète &grille, int &pen_tot){ //pen + change son propre 
 
 
             //cette fonction n'est pas un void mais fait quand même des std::cout périodiquement, il faudra changer ça
-int calcul_score(grille_complète &grille){
+int calcul_score(grille_complete &grille){
     int poi_tot=0,pen_tot=0; //variables point totaux et pénalités totales
     char jeton; //sert juste à ne pas réécrire grille[i][j] à chaque fois
     mat_sl save_grille_sl; //save de la grille pour pouvoir reourner aux valeur initiales car on change certains char en minuscule pour le comptage

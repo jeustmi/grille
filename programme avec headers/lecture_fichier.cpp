@@ -1,6 +1,6 @@
 #include "lecture_fichier.hpp"
 
-void lecture_fichier_nb(ch fic,grille_complète &grille){ //lit un fichier de la forme grille.nb avec n et p en en-tête (entrée)
+void lecture_fichier_nb(ch fic,grille_complete &grille){ //lit un fichier de la forme grille.nb avec n et p en en-tête (entrée)
     fif grille_fichier(fic);
     int e;
     if(grille_fichier){
@@ -16,11 +16,11 @@ void lecture_fichier_nb(ch fic,grille_complète &grille){ //lit un fichier de la
         }
     }
     else{
-        std::cout<<"erreur lecture du fichier"<<std::endl;
+        std::cout<<"erreur lecture du fichier nb"<<std::endl;
     }
 }
 
-void lecture_fichier_sl(ch fic,grille_complète &grille){ //lit un fichier de la forme grille.sl, avec seulement les numéros (sortie dans le programme final, entrée ici)
+void lecture_fichier_sl(ch fic,grille_complete &grille){ //lit un fichier de la forme grille.sl, avec seulement les numéros (sortie dans le programme final, entrée ici)
     fif grille_fichier(fic);
     char e;
     if(grille_fichier){
@@ -32,6 +32,6 @@ void lecture_fichier_sl(ch fic,grille_complète &grille){ //lit un fichier de la
         }
     }
     else{
-        std::cout<<"erreur lecture du fichier"<<std::endl;
+        std::cout<<"erreur lecture du fichier sl"<<std::endl;
     }
 }
