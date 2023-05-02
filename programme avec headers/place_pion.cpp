@@ -15,6 +15,9 @@ void placePionRouge(grille_complete & g){//place le pion rouge sur la case avec 
 }
 
 void place_noir(grille_complete & g){
+    mat_tri vert_mat;
+    tab_tri vert_tab;
+    int vn=0,poi_v,serarien;
     int nn=0; //nn le nombre de noire placer
     int nt=0;
     int poi_tot,pen_tot,i,j;
@@ -39,6 +42,17 @@ void place_noir(grille_complete & g){
                 if(g.sl[i][j]=='1'){
                     g.sl[i][j]='V';
                 }
+                poi_v=0;
+                jeton_v(g,poi_v,serarien,i,j);
+                vert_tab={poi_v,i,j};
+                ++vn;
+                int k;
+                k=vn-1;
+                while ((k > 0) and (vert_mat[k-1][0] > vert_tab[0])){
+                    vert_mat[k] = vert_mat[k-1];
+                    --k;
+                }
+                vert_mat[k] = vert_tab;
             }
             if(nn==g.n){
                 n_placer = false;
@@ -47,10 +61,8 @@ void place_noir(grille_complete & g){
         else{
             n_placer = false;
         }
-        
         ++nt;
     }
-    
 }
 void place_orange(grille_complete & g){
     int nt=1;
@@ -65,7 +77,7 @@ void place_orange(grille_complete & g){
             i=g.vt[nt][1];
             j=g.vt[nt][2];
             jeton_v(g,poi_tot_v,pen_tot_v,i,j);
-            jeton_o(g,pen_tot_o,i,jZ);
+            jeton_o(g,pen_tot_o,i,j);
             p_v=poi_tot_v-(pen_tot_v);
             if((pen_tot_o==0 and (pen_tot_o)<=p_v)){
                 if(g.sl[i][j]=='1'){
@@ -119,4 +131,3 @@ void place_jaune(grille_complete & g){
         ++nt;
     }
 }
-
