@@ -299,6 +299,7 @@ void place_noir(grille_complete & g){
             pen_tot=0;
             i=g.vt[t-1-nt][1];
             j=g.vt[t-1-nt][2];
+            jeton_v(g,poi_tot,pen_tot);
             if((2*(g.vt[t-1-nt][0]-1)>poi_tot-pen_tot)){
                 if(g.sl[i][j]=='1'){
                     g.sl[i][j]='N';
@@ -320,9 +321,79 @@ void place_noir(grille_complete & g){
         
         ++nt;
     }
+    
+}
+void place_orange(grille_complete & g){
+    int nt=1;
+    int pen_tot_o,poi_tot_v,pen_tot_v,i,j,p_v;
+    int t=g.n*g.n;
+    bool n_placer = true; //est vrais tant que tout les noir ne sont pas placer correctement
+    while (n_placer and nt<t){
+        if(g.vt[nt][0]<0){
+            poi_tot_v=0;
+            pen_tot_v=0;
+            pen_tot_o=0;
+            i=g.vt[nt][1];
+            j=g.vt[nt][2];
+            jeton_v(g,poi_tot_v,pen_tot_v);
+            jeton_o(g,pen_tot_o);
+            p_v=poi_tot_v-pen_tot_v;
+            if(p_v>0){
+                if((-pen_tot_o>p_v)){
+                    if(g.sl[i][j]=='1'){
+                        g.sl[i][j]='O';
+                    }
+                }
+                else{
+                    if(g.sl[i][j]=='1'){
+                        g.sl[i][j]='V';
+                    }
+                }
+            }
+        }
+        else{
+            n_placer = false;
+        }
+        
+        ++nt;
+    }
+}
+void place_jaune(grille_complete & g){
+    int nt=0;
+    int poi_tot_j,pen_tot_j,poi_tot_v,pen_tot_v,i,j;
+
+    int t=g.n*g.n;
+    bool n_placer = true; //est vrais tant que tout les noir ne sont pas placer correctement
+    while (n_placer and nt<t){
+        if(g.vt[t-1-nt][0]>0){
+            poi_tot_v=0;
+            pen_tot_v=0;
+            poi_tot_j=0;
+            pen_tot_j=0;
+            i=g.vt[t-1-nt][1];
+            j=g.vt[t-1-nt][2];
+            jeton_v(g,poi_tot_v,pen_tot_v);
+            jeton_j(g,poi_tot_j,pen_tot_j);
+            if((poi_tot_j>poi_tot_v-pen_tot_v)){
+                if(g.sl[i][j]=='1'){
+                    g.sl[i][j]='J';
+                }
+            }
+            else{
+                if(g.sl[i][j]=='1'){
+                    g.sl[i][j]='V';
+                }
+            }
+        }
+        else{
+            n_placer = false;
+        }
+        
+        ++nt;
+    }
 }
 
-
+   
 int main(){
     grille_complete grille;
     ch taille_grille,lettre_grille,numero_test;
@@ -366,7 +437,12 @@ int main(){
     init_sl(grille);
     placePionRouge(grille);
     affichage_mat_sl(grille.sl,grille.n);
+    std::cout<<std::endl<<std::endl<<std::endl;
     place_noir(grille);
     affichage_mat_sl(grille.sl,grille.n);
+    /*std::cout<<std::endl<<std::endl<<std::endl;
+    place_orange(grille);
+    affichage_mat_sl(grille.sl,grille.n);
+    std::cout<<std::endl<<std::endl<<std::endl;*/
     return 0;
 }

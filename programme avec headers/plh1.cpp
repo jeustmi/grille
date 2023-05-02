@@ -1,4 +1,4 @@
-#include "plh.hpp"
+#include "place_pion.hpp"
 #include "calcul_score.hpp"
 
 void init_sl(grille_complete & g){//init la grille de solution avec des '1'
