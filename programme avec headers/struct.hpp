@@ -16,7 +16,7 @@ struct grille_complete{ //on fait une structure contenant toutes les informatios
     mat_sl sl; //grille de solution
     mat_tri vt; //tableau contenant les valeurs de la matrice, triées
     int J=0,V=0,N=0,B=0,O=0,R=0; //nombre de jeton de chaque couleur de la grille.sl
-    int n,p; //n=taille, p=pénalité
+    int n,p,t; //n=taille, p=pénalité
 };
 
 #endif

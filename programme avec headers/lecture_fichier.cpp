@@ -6,6 +6,7 @@ void lecture_fichier_nb(ch fic,grille_complete &grille){ //lit un fichier de la 
     if(grille_fichier){
         grille_fichier >> e;
         grille.n=e;
+        grille.t=e*e;
         grille_fichier >> e;
         grille.p=e;
         for(int i=0;i<grille.n;++i){
