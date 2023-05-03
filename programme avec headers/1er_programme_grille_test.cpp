@@ -44,21 +44,22 @@ int main(){
     tri_selection(grille,grille.n*grille.n);
     affiche_tab_tri(grille);
     std::cout<<std::endl;
-
+    
+    int dn=0,dp=0;
     init_sl(grille);
-    placePionRouge(grille);
+    placePionRouge(grille,dn);
     affichage_mat_sl(grille.sl,grille.n);
     std::cout<<std::endl<<std::endl<<std::endl;
-    place_noir(grille);
+    place_noir(grille,dp);
     affichage_mat_sl(grille.sl,grille.n);
     std::cout<<std::endl<<std::endl<<std::endl;
-    place_bleu(grille);
+    place_bleu(grille,dn);
     affichage_mat_sl(grille.sl,grille.n);
     std::cout<<std::endl<<std::endl<<std::endl;
-    place_orange(grille);
+    place_orange(grille,dn);
     affichage_mat_sl(grille.sl,grille.n);
     std::cout<<std::endl<<std::endl<<std::endl;
-    place_jaune(grille);
+    place_jaune(grille,dp);
     affichage_mat_sl(grille.sl,grille.n);
     std::cout<<std::endl<<std::endl<<std::endl;
     
