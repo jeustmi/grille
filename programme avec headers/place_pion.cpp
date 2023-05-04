@@ -17,6 +17,30 @@ void placePionRouge(grille_complete & g,int & dn){//place le pion rouge sur la c
     std::cout<<dn<<std::endl;
 }
 
+void trouve_dp_dn(grille_complete & g, int & dp,int & dn){ //si la grille est remplie, renvoie 0 pour dn et dp
+    bool trouve_n,trouve_p;
+    trouve_n=trouve_p=false;
+    dp=0;
+    dn=0;
+    for(int i=1;i<g.t-1;++i){
+        if(trouve_n==false and g.sl[g.vt[i][1]][g.vt[i][2]]=='1' and g.sl[g.vt[i-1][1]][g.vt[i-1][2]]!='1'){
+            dn=i;
+            trouve_n=true;
+        }
+        if(trouve_p==false and g.sl[g.vt[g.t-i][1]][g.vt[g.t-i][2]]=='1' and g.sl[g.vt[g.t-i+1][1]][g.vt[g.t-i+1][2]]!='1'){
+            dp=i-1; //truc bizarre ici, je sais pas si le -1 est nécessaire
+            trouve_p=true;
+        }
+    }
+    int k=0;
+    for(int i=0; i<g.n ; ++i){
+        for(int j=0; j<g.n ; ++j){
+            std::cout<<k<<" valeur : "<<g.vt[k][0]<<" i :"<<g.vt[k][1]<<" j :"<<g.vt[k][2]<<std::endl;
+            ++k;
+        }
+    }
+}
+
 void place_noir(grille_complete & g,int & dp){
     mat_tri vert_mat;
     tab_tri vert_tab;
@@ -250,7 +274,8 @@ void place_vert(grille_complete & g){
 }
 
 void place_orange(grille_complete & g,int & dn){
-    int pen_tot_o,poi_tot_v,pen_tot_v,i,j,p_v;
+    int pen_tot_o,poi_tot_v,pen_tot_v,i,j,p_v,rine;
+    trouve_dp_dn(g,rine,dn);
     bool o_placer = true; //est vrais tant que tout les noir ne sont pas placer correctement
     while (o_placer and dn<g.t){
         if(g.vt[dn][0]<0){
@@ -311,12 +336,23 @@ void place_orange2(grille_complete & g,int & dn){
     }
 }
 
-void place_orange3(grille_complete & g,int & dn){
-    int a;
+void place_orange3(grille_complete & g,int & dn){ //marche pas, pb avec vt
+    mat_tri or_mat;
+    int a,rine,k;
+    trouve_dp_dn(g,rine,dn);
     a=recherche_min_positif(g.vt,g.t);
-    while(dn<a){
-        //programmation par contrainte
-        ++dn;
+    a=a-dn;
+    k=0;
+    std::cout<<dn<<" "<<a<<std::endl;
+    for(int i=dn;i<dn+a;i++){
+        or_mat[k][0]=g.vt[i][1];
+        or_mat[k][1]=g.vt[i][2];
+        ++k;
+    }
+    k=0;
+    for(int i=0; i<a ; ++i){
+        std::cout<<k<<" i :"<<or_mat[k][0]<<" j :"<<or_mat[k][1]<<std::endl;
+        ++k;
     }
 }
 
@@ -398,6 +434,10 @@ void place_jaune(grille_complete & g,int & dp){
         
         ++dp;
     }
+}
+
+void place_jaune2(grille_complete & g, int & dp){
+
 }
 
 void place_zero(grille_complete & g){
