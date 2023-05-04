@@ -49,11 +49,16 @@ int main(){
     else if(type_programme==2){
         std::cout<<std::endl;
         init_tab_tri(grille);
-        affiche_tab_tri(grille);
+        //affiche_tab_tri(grille);
         std::cout<<std::endl;
-        tri_selection(grille,grille.n*grille.n);
-        affiche_tab_tri(grille);
+        tri_selection(grille,grille.t);
+        //affiche_tab_tri(grille);
         std::cout<<std::endl;
+
+        init_sl(grille);
+        /*place_vert(grille);
+        affichage_mat_sl(grille.sl,grille.n);
+        std::cout<<std::endl<<std::endl<<std::endl;*/
         
         int dn=0,dp=0;
         init_sl(grille);
@@ -68,7 +73,7 @@ int main(){
         affichage_mat_sl(grille.sl,grille.n);
         std::cout<<std::endl<<std::endl<<std::endl;
         
-        place_orange(grille,dn);
+        /*place_orange(grille,dn);
         affichage_mat_sl(grille.sl,grille.n);
         std::cout<<std::endl<<std::endl<<std::endl;
         place_bleu(grille,dn);
@@ -76,7 +81,7 @@ int main(){
         std::cout<<std::endl<<std::endl<<std::endl;
         place_jaune(grille,dp);
         affichage_mat_sl(grille.sl,grille.n);
-        std::cout<<std::endl<<std::endl<<std::endl;
+        std::cout<<std::endl<<std::endl<<std::endl;*/
         
     }
     
