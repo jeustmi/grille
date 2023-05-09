@@ -33,12 +33,12 @@ void trouve_dp_dn(grille_complete & g, int & dp,int & dn){ //si la grille est re
         }
     }
     int k=0;
-    for(int i=0; i<g.n ; ++i){
+    /*for(int i=0; i<g.n ; ++i){
         for(int j=0; j<g.n ; ++j){
             std::cout<<k<<" valeur : "<<g.vt[k][0]<<" i :"<<g.vt[k][1]<<" j :"<<g.vt[k][2]<<std::endl;
             ++k;
         }
-    }
+    }*/
 }
 
 void place_noir(grille_complete & g,int & dp){
@@ -119,7 +119,7 @@ void compte_vert(grille_complete & g, mat3 & val_comb_vert, mat_tri & vert_pos_m
     }*/
     int n;
     n=val_comb_vert[0][1][0];
-    std::cout<<std::endl;
+    //std::cout<<std::endl;
     //std::cout<<n<<std::endl<<std::endl;
     for(int i=0;i<vpm_n-n;++i){
         //std::cout<<i<<std::endl;
@@ -137,7 +137,7 @@ void compte_vert(grille_complete & g, mat3 & val_comb_vert, mat_tri & vert_pos_m
                 g.sl[vert_pos_mat[j][0]][vert_pos_mat[j][1]]='v';
             }
         }
-        std::cout<<vpm_n-n<<"   ";
+        //std::cout<<vpm_n-n<<"   ";
         for(int j=0;j<vpm_n-n;++j){
             if(j!=i){
                 g.sl[vert_pos_mat[j][0]][vert_pos_mat[j][1]]='V';
@@ -161,10 +161,10 @@ void compte_vert(grille_complete & g, mat3 & val_comb_vert, mat_tri & vert_pos_m
             --j;
         }
         val_comb_vert[j]=val_1comb;
-        for(j=0;j<i+2;++j){
+        /*for(j=0;j<i+2;++j){
             std::cout<<val_comb_vert[j][0][0]<<std::endl;
         }
-        std::cout<<std::endl;
+        std::cout<<std::endl;*/
     }
     
     int j=val_comb_vert[1][2+n][2];
@@ -343,7 +343,7 @@ void place_orange3(grille_complete & g,int & dn){ //place la meilleure position 
     trouve_dp_dn(g,rine,dn);
     a=recherche_min_positif(g.vt,g.t);
     a=a-dn;
-    std::cout<<dn<<" "<<a<<std::endl;
+    //std::cout<<dn<<" "<<a<<std::endl;
     or_mat_n=0;
     i=dn;
     while(i<dn+a){
