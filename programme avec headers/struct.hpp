@@ -4,10 +4,10 @@
 #include <array>
 #include <iostream>
 
-using tab_nb=std::array<int,16>;
-using mat_nb=std::array<tab_nb,16>;
-using tab_sl=std::array<char,16>;
-using mat_sl=std::array<tab_sl,16>;
+using tab_nb=std::array<int,64>;
+using mat_nb=std::array<tab_nb,64>;
+using tab_sl=std::array<char,64>;
+using mat_sl=std::array<tab_sl,64>;
 using tab_tri=std::array<int,64>;
 using mat_tri=std::array<tab_tri,1024>;
 
