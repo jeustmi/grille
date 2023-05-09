@@ -84,6 +84,15 @@ int main(){
         std::cout<<std::endl<<std::endl<<std::endl;*/
         
     }
+
+    else if(type_programme==3){
+        init_tab_tri(grille);
+        tri_selection(grille,grille.t);
+        init_sl(grille);
+        int dn=0,dp=0;
+        place_orange3(grille,dn);
+        affichage_mat_sl(grille.sl,grille.n);
+    }
     
     return 0;
 }
