@@ -338,21 +338,32 @@ void place_orange2(grille_complete & g,int & dn){
 
 void place_orange3(grille_complete & g,int & dn){ //marche pas, pb avec vt
     mat_tri or_mat;
-    int a,rine,k;
+    int or_mat_n,a,rine,k,i,pen;
     trouve_dp_dn(g,rine,dn);
     a=recherche_min_positif(g.vt,g.t);
     a=a-dn;
-    k=0;
     std::cout<<dn<<" "<<a<<std::endl;
-    for(int i=dn;i<dn+a;i++){
+    or_mat_n=0;
+    i=dn;
+    while(i<dn+a){
+        if(g.sl[g.vt[i][1]][g.vt[i][2]]=='1'){
+            g.sl[g.vt[i][1]][g.vt[i][2]]='O';
+            or_mat[or_mat_n][1]=g.vt[i][1];
+            or_mat[or_mat_n][2]=g.vt[i][2];
+            ++or_mat_n;
+        }
+        ++i;
+    }
+    /*for(int i=dn;i<dn+a;i++){
         or_mat[k][0]=g.vt[i][1];
         or_mat[k][1]=g.vt[i][2];
         ++k;
-    }
-    k=0;
-    for(int i=0; i<a ; ++i){
-        std::cout<<k<<" i :"<<or_mat[k][0]<<" j :"<<or_mat[k][1]<<std::endl;
-        ++k;
+    }*/
+    for(int i=0; i<or_mat_n ; ++i){
+        pen=0;
+        jeton_o(g,pen,or_mat[i][1],or_mat[i][2]);
+        or_mat[i][0]=pen;
+        std::cout<<i<<" pen :"<<pen<<" i :"<<or_mat[i][1]<<" j :"<<or_mat[i][2]<<std::endl;
     }
 }
 
