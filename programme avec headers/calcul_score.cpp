@@ -92,7 +92,7 @@ void jeton_o(grille_complete &grille, int &pen_tot, int i, int j){ //pen + chang
             pen_tot+=grille.p; //pénalité si un autre jeton orange sur la diagonale
         }
     }
-    for(int k=-std::min(grille.n-1-i,j);k<grille.n-std::max(grille.n-1-i,j);k++){
+    for(int k=-std::min(i,j);k<grille.n-std::max(i,j);k++){
         if(k!=0 and grille.sl[i-k][j+k]=='O'){ //parcours de la grille en diagonale dl:tr
             pen_tot+=grille.p; //pénalité si un autre jeton orange sur la diagonale
         }
