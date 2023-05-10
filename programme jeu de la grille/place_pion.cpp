@@ -25,34 +25,29 @@ int recherche_min_positif(grille_complete & g, mat_tri mat, int t){
     }
     return k-1;
 }
-
-void trouve_dp_dn(grille_complete & g, int & dp,int & dn){ //si la grille est remplie, renvoie 0 pour dn et dp
-    bool trouve_n,trouve_p;
-    trouve_n=trouve_p=false;
-    dp=0;
+int trouve_dn(grille_complete & g, int dn){
+    bool trouve_n = false;
     dn=0;
     for(int i=1;i<g.t-1;++i){
-        if(trouve_n==false and g.sl[g.vt[i][1]][g.vt[i][2]]=='1' and g.sl[g.vt[i-1][1]][g.vt[i-1][2]]!='1'){
+        if(trouve_n==false and g.sl[g.vt[i][1]][g.vt[i][2]]=='1'){
             dn=i;
             trouve_n=true;
         }
-        if(trouve_p==false and g.sl[g.vt[g.t-i][1]][g.vt[g.t-i][2]]=='1' and g.sl[g.vt[g.t-i+1][1]][g.vt[g.t-i+1][2]]!='1'){
-            dp=i-1; //truc bizarre ici, je sais pas si le -1 est nécessaire
+    }
+    return dn;
+}
+int trouve_dp(grille_complete & g, int dp){
+    bool trouve_p = false;
+    dp=0;
+    for(int i=0;i<g.t-1;++i){
+        if(trouve_p==false and g.sl[g.vt[i][1]][g.vt[i][2]]=='1'){
+            dp=i;
             trouve_p=true;
         }
     }
-    int k=0;
-
-    //boucle de test
-    /*for(int i=0; i<g.n ; ++i){
-        for(int j=0; j<g.n ; ++j){
-            std::cout<<k<<" valeur : "<<g.vt[k][0]<<" i :"<<g.vt[k][1]<<" j :"<<g.vt[k][2]<<std::endl;
-            ++k;
-        }
-    }*/
-
+    return dp;
+    
 }
-
 void placePionRouge(grille_complete & g,int & dn){//place le pion rouge sur la case avec la plus petite valeur
     g.sl[g.vt[0][1]][g.vt[0][2]]='R';
     ++dn;
@@ -279,8 +274,8 @@ void place_vert(grille_complete & g){
 void place_orange(grille_complete & g,int & dn){ //place la meilleure position des oranges, dans certains cas
     mat_tri or_mat;
     tab_tri or_tab;
-    int or_mat_n,a,rine,k,i,pen;
-    trouve_dp_dn(g,rine,dn);
+    int or_mat_n,a,k,i,pen;
+    dn=trouve_dn(g,dn);
     a=recherche_min_positif(g,g.vt,g.t);
     a=a-dn;
     //std::cout<<dn<<" "<<a<<std::endl;
@@ -330,11 +325,11 @@ void place_bleu(grille_complete & g,int & dn){
     int vb,i1,j1,i2,j2,k,rien;
     bool b_placer = true;
     
-    trouve_dp_dn(g,rien,dn);
+    dn=trouve_dn(g,dn);
     k=recherche_min_positif(g,g.vt,g.t);
     
     while (b_placer){
-        trouve_dp_dn(g,rien,dn);
+        dn=trouve_dn(g,dn);
         k=recherche_min_positif(g,g.vt,g.t);
         i1=g.vt[dn][1];
         j1=g.vt[dn][2];
@@ -361,36 +356,49 @@ void place_bleu(grille_complete & g,int & dn){
             }
         }
 
-        ++dn;
     }
 }
 
-void place_jaune(grille_complete & g,int & dp){
-    int poi_tot_j,pen_tot_j,poi_tot_v,pen_tot_v,i,j;
-
+/*void place_jaune(grille_complete & g,int & dp){
+    int poi_tot_j,pen_tot_j,i,j,rien;
+    dp=trouve_dp(g,dp);
     bool j_placer = true; //est vrais tant que tout les noir ne sont pas placer correctement
-    while (j_placer and dp<g.t){
-        if(g.vt[g.t-1-dp][0]>=0){
-            poi_tot_v=0;
-            pen_tot_v=0;
-            poi_tot_j=0;
-            pen_tot_j=0;
-            i=g.vt[g.t-1-dp][1];
-            j=g.vt[g.t-1-dp][2];
-            jeton_v(g,poi_tot_v,pen_tot_v,i,j);
-            jeton_j(g,poi_tot_j,pen_tot_j,i,j);
-            if((poi_tot_j-pen_tot_j>poi_tot_v-pen_tot_v)){
-                if(g.sl[i][j]=='1'){
-                    g.sl[i][j]='J';
-                }
+    while (j_placer and dp<g.t and dp>1){
+        dp=trouve_dp(g,dp);
+        poi_tot_j=0;
+        pen_tot_j=0;
+        i=g.vt[dp][1];
+        j=g.vt[dp][2];
+        std::cout<<" i: "<<i<<" j: "<<j<<std::endl;
+        jeton_j(g,poi_tot_j,pen_tot_j,i,j);
+        std::cout<<"poi_tot_j-pen_tot_j : "<<poi_tot_j-pen_tot_j<<std::endl;
+        
+        if(g.sl[i][j]!='1'){
+            j_placer = false;
+        }
+
+        else if(poi_tot_j-pen_tot_j>=-g.p){
+             std::cout<<"cc"<<std::endl;
+            if(g.sl[i][j]=='1'){
+                g.sl[i][j]='J';
             }
+    
         }
         else{
             j_placer = false;
         }
-        
-        ++dp;
     }
+}*/
+void place_jaune(grille_complete & g){
+    int i,j;
+    for(int h=0; h<g.t ; ++h){
+        i=g.vt[h][1];
+        j=g.vt[h][2];
+        if(g.sl[i][j]=='1'){
+            g.sl[i][j]='J';
+        }
+    }
+        
 }
 
 void place_zero(grille_complete & g){

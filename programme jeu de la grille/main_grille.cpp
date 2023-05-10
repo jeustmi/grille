@@ -79,9 +79,12 @@ int main(){
         place_bleu(grille,dn);
         affichage_mat_sl(grille.sl,grille.n);
         std::cout<<std::endl<<std::endl<<std::endl;
-        place_jaune(grille,dp);
+        //place_jaune(grille,dp);
+        place_jaune(grille);
         affichage_mat_sl(grille.sl,grille.n);
         std::cout<<std::endl<<std::endl<<std::endl;
+        int score=0;
+        calcul_score(grille, score);
         
     }
 
