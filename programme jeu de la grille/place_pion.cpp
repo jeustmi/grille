@@ -1,11 +1,6 @@
 #include "place_pion.hpp"
 #include "calcul_score.hpp"
 
-using vect_co=std::array<int,3>;
-using mat2=std::array<vect_co,512>;
-using mat3=std::array<mat2,512>;
-
-
 void init_sl(grille_complete & g){//init la grille de solution avec des '1'
     for(int i=0; i<g.n ; ++i){
         for(int j=0; j<g.n ; ++j){
@@ -103,6 +98,9 @@ void place_noir(grille_complete & g,int & dp){
     }
 }
 
+using vect_co=std::array<int,3>;
+using mat2=std::array<vect_co,512>;
+using mat3=std::array<mat2,512>;
 
 void compte_vert(grille_complete & g, mat3 & val_comb_vert, mat_tri & vert_pos_mat, int vpm_n, bool & fin){
     /*if(val_comb_vert[0][1][0]=vpm_n){
@@ -189,6 +187,7 @@ void place_vert(grille_complete & g){
     tab_tri vert_tab;
     int poi,pen,i,j,vn;
     vn=0;
+    std::cout<<"feur"<<std::endl;
     for(i=0;i<g.n;i++){
         for(j=0;j<g.n;j++){
             if(g.sl[i][j]=='1'){
@@ -233,6 +232,7 @@ void place_vert(grille_complete & g){
         std::cout<<std::endl;
     }*/
     bool fin=false;
+    std::cout<<"feur"<<std::endl;
     while(fin==false){
         compte_vert(g,val_comb_vert,vert_pos_mat,vpm_n,fin);
         if(val_comb_vert[0][1][0]==vpm_n){

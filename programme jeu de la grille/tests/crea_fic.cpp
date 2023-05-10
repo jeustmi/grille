@@ -12,7 +12,7 @@ int main(){
     std::cin>>n2;
     std::ofstream fic("../fic/probleme_"+n2+"_w.txt");
     fic << n1;
-    n=std::rand()%200-100;
+    n=std::rand()%100;
     ch=std::to_string(n);
     std::cout<<ch<<std::endl;
     fic << " "+ch;

@@ -68,6 +68,7 @@ int main(){
         place_noir(grille,dp);
         affichage_mat_sl(grille.sl,grille.n);
         std::cout<<std::endl<<std::endl<<std::endl;
+        std::cout<<"feur"<<std::endl;
 
         place_vert(grille);
         affichage_mat_sl(grille.sl,grille.n);
