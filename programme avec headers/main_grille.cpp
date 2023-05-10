@@ -7,7 +7,7 @@
 #include "tab_tri.hpp"
 #include "place_pion.hpp"
 
-//g++ 1er_programme_grille_test.cpp lecture_fichier.cpp aff_mat.cpp compte_jetons.cpp calcul_score.cpp struct.cpp ecriture_fichier.cpp tab_tri.cpp place_pion.cpp -o prog.out
+//g++ main_grille.cpp lecture_fichier.cpp aff_mat.cpp compte_jetons.cpp calcul_score.cpp struct.cpp ecriture_fichier.cpp tab_tri.cpp place_pion.cpp -o prog.out
 
 
 int main(){
@@ -51,7 +51,7 @@ int main(){
         init_tab_tri(grille);
         //affiche_tab_tri(grille);
         std::cout<<std::endl;
-        tri_selection(grille,grille.t);
+        tri_selection(grille);
         //affiche_tab_tri(grille);
         std::cout<<std::endl;
 
@@ -59,7 +59,7 @@ int main(){
         /*place_vert(grille);
         affichage_mat_sl(grille.sl,grille.n);
         std::cout<<std::endl<<std::endl<<std::endl;*/
-        
+
         int dn=0,dp=0;
         init_sl(grille);
         placePionRouge(grille,dn);
@@ -87,7 +87,7 @@ int main(){
 
     else if(type_programme==3){
         init_tab_tri(grille);
-        tri_selection(grille,grille.t);
+        tri_selection(grille);
         init_sl(grille);
         int dn=0,dp=0;
         place_orange3(grille,dn);

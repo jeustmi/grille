@@ -22,17 +22,17 @@ void affiche_tab_tri(grille_complete g){ //affiche les valeur de la grille et le
     }
 }
 
-void tri_selection(grille_complete & g,int n){  //trie les valeur de la grille
+void tri_selection(grille_complete & g){  //trie les valeur de la grille, selection
     tab_tri aux;
-    for(int i=0; i<n; ++i){
+    for(int i=0; i<g.t; ++i){
         int max = 0;
-        for(int j=0; j<n-i; j++){
+        for(int j=0; j<g.t-i; j++){
             if (g.vt[max][0]<g.vt[j][0]){
                 max = j;
             }
         }
         aux = g.vt[max];
-        g.vt[max] = g.vt[n-1-i];
-        g.vt[n-1-i] =  aux;
+        g.vt[max] = g.vt[g.t-1-i];
+        g.vt[g.t-1-i] =  aux;
     }
 }

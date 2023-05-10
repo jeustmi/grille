@@ -7,7 +7,7 @@ int main(){
     std::string n2;
     std::cin>>n1;
     std::cin>>n2;
-    std::ofstream fic("fic/probleme_"+n2+"_w.txt");
+    std::ofstream fic("../fic/probleme_"+n2+"_w.txt");
     fic << n1;
     fic << " -1";
     fic << std::endl;
