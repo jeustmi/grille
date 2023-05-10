@@ -104,12 +104,6 @@ void place_vert(grille_complete & g){
     }
     mat3 val_comb_vert;
     val_comb_vert[0]={poi-pen,-2,-2,0,-2,-2}; //on initialise val_comb_vert
-    /*for(i=0;i<3;++i){
-        for(j=0;j<3;++j){
-            std::cout<<val_comb_vert[0][i][j]<<" ";
-        }
-        std::cout<<std::endl;
-    }*/
     bool fin=false;
     while(fin==false){ //on lance le programme pour trouver la meilleure combinaison de verts parmi ceux posés au début
         compte_vert(g,val_comb_vert,vert_pos_mat,vpm_n,fin);
@@ -117,35 +111,4 @@ void place_vert(grille_complete & g){
             fin=true;
         }
     }
-    /*for(i=2;i<val_comb_vert[0][1][0]+2;++i){
-        g.sl[val_comb_vert[0][i][0]][val_comb_vert[0][i][1]]='v';
-    }*/
-    /*i=1;
-    while(i<vpm_n){
-        ++vpm_n;
-        g.sl[vert_mat[i][1]][vert_mat[i][2]]='v';
-        poi=0;
-        pen=0;
-        j=vn-1;
-        while(j>=a){
-            if(j!=i){
-                jeton_v(g,poi,pen,vert_mat[j][1],vert_mat[j][2]);
-            }
-            --j;
-        }
-        vert_pos_tab={poi-pen,vert_mat[i][1],vert_mat[i][2]};
-        j=vpm_n-1;
-        while ((j>0) and (vert_pos_mat[j-1][0] < vert_pos_tab[0])){
-            vert_pos_mat[j] = vert_pos_mat[j-1];
-            --j;
-        }
-        vert_pos_mat[j]=vert_pos_tab;*/
-        /*for(j=0;j<vpm_n;++j){
-            std::cout<<vert_pos_mat[j][0]<<" "<<vert_pos_mat[j][1]<<" "<<vert_pos_mat[j][2]<<std::endl;
-        }*/
-        /*g.sl[vert_mat[i][1]][vert_mat[i][2]]='V';
-        ++i;
-    }
-    g.sl[vert_pos_mat[0][1]][vert_pos_mat[0][2]]='1';*/
 }
-
