@@ -1,6 +1,11 @@
 #include "place_pion.hpp"
 #include "calcul_score.hpp"
 
+using vect_co=std::array<int,3>;
+using mat2=std::array<vect_co,512>;
+using mat3=std::array<mat2,512>;
+
+
 void init_sl(grille_complete & g){//init la grille de solution avec des '1'
     for(int i=0; i<g.n ; ++i){
         for(int j=0; j<g.n ; ++j){
@@ -9,9 +14,16 @@ void init_sl(grille_complete & g){//init la grille de solution avec des '1'
     }
 }
 
-void placePionRouge(grille_complete & g,int & dn){//place le pion rouge sur la case avec la plus petite valeur
-    g.sl[g.vt[0][1]][g.vt[0][2]]='R';
-    ++dn;
+int recherche_min_positif(grille_complete & g, mat_tri mat, int t){
+    int k=0;
+    bool trouver=false;
+    while(not trouver and k<t){
+        if(mat[k][0]>0 and g.sl[mat[k][1]][mat[k][2]]=='1'){
+            trouver=true;
+        }
+        ++k;
+    }
+    return k-1;
 }
 
 void trouve_dp_dn(grille_complete & g, int & dp,int & dn){ //si la grille est remplie, renvoie 0 pour dn et dp
@@ -40,6 +52,12 @@ void trouve_dp_dn(grille_complete & g, int & dp,int & dn){ //si la grille est re
     }*/
 
 }
+
+void placePionRouge(grille_complete & g,int & dn){//place le pion rouge sur la case avec la plus petite valeur
+    g.sl[g.vt[0][1]][g.vt[0][2]]='R';
+    ++dn;
+}
+
 
 void place_noir(grille_complete & g,int & dp){
     mat_tri vert_mat;
@@ -90,21 +108,6 @@ void place_noir(grille_complete & g,int & dp){
     }
 }
 
-int recherche_min_positif(mat_tri mat,int t){
-    int k=0;
-    bool trouver=false;
-    while(not trouver and k<t){
-        if(mat[k][0]>0){
-            trouver=true;
-        }
-        ++k;
-    }
-    return k-1;
-}
-
-using vect_co=std::array<int,3>;
-using mat2=std::array<vect_co,512>;
-using mat3=std::array<mat2,512>;
 
 void compte_vert(grille_complete & g, mat3 & val_comb_vert, mat_tri & vert_pos_mat, int vpm_n, bool & fin){
     /*if(val_comb_vert[0][1][0]=vpm_n){
@@ -218,7 +221,7 @@ void place_vert(grille_complete & g){
     poi=0;
     pen=0;
     i=vn-1;
-    a=recherche_min_positif(vert_mat,g.t);
+    a=recherche_min_positif(g,vert_mat,g.t);
     while(i>=a){
         jeton_v(g,poi,pen,vert_mat[i][1],vert_mat[i][2]);
         g.sl[vert_mat[i][1]][vert_mat[i][2]]='V';
@@ -278,7 +281,7 @@ void place_orange(grille_complete & g,int & dn){ //place la meilleure position d
     tab_tri or_tab;
     int or_mat_n,a,rine,k,i,pen;
     trouve_dp_dn(g,rine,dn);
-    a=recherche_min_positif(g.vt,g.t);
+    a=recherche_min_positif(g,g.vt,g.t);
     a=a-dn;
     //std::cout<<dn<<" "<<a<<std::endl;
     or_mat_n=0;
@@ -324,46 +327,38 @@ void place_orange(grille_complete & g,int & dn){ //place la meilleure position d
 }
 
 void place_bleu(grille_complete & g,int & dn){
-    int vb,poi_tot1,pen_tot1,poi_tot2,pen_tot2,i1,j1,i2,j2,k;
-    
+    int vb,i1,j1,i2,j2,k,rien;
     bool b_placer = true;
     
-    k=recherche_min_positif(g.vt,g.t);
-    while (b_placer and dn!=k){
-        poi_tot1=0;
-        pen_tot1=0;
+    trouve_dp_dn(g,rien,dn);
+    k=recherche_min_positif(g,g.vt,g.t);
+    
+    while (b_placer){
+        trouve_dp_dn(g,rien,dn);
+        k=recherche_min_positif(g,g.vt,g.t);
         i1=g.vt[dn][1];
         j1=g.vt[dn][2];
-        jeton_v(g,poi_tot1,pen_tot1,i1,j1);
-        poi_tot2=0;
-        pen_tot2=0;
-        i2=g.vt[k-1+dn][1];
-        j2=g.vt[k-1+dn][2];
-        jeton_v(g,poi_tot2,pen_tot2,i2,j2);
-        vb=g.vt[k-1+dn][0]-g.vt[dn][0];
-        if(vb>=0){
-            if(vb<poi_tot1-pen_tot1){
-                if(g.sl[i1][j1]=='1'){
-                    g.sl[i1][j1]='V';
-                    ++dn;
-                    --k;
-                }
-            }
-            else if(vb<poi_tot2-pen_tot2){
-                if(g.sl[i2][j2]=='1'){
-                    g.sl[i2][j2]='V';
-                    ++k;
-                }
-            }
-            else{
+        i2=g.vt[k][1];
+        j2=g.vt[k][2];
+        if(g.vt[k][0]>0 and g.vt[dn][0]>0){
+            vb=g.vt[k][0]-g.vt[dn][0]-g.p;
+        }
+        else{
+            vb=g.vt[k][0]-g.vt[dn][0];
+        }
+        if(dn==k){
+            b_placer = false;
+        }
+        else if(g.sl[i1][j1]!='1' or g.sl[i2][j2]!='1'){
+            b_placer = false;
+        }
+        else{
+            if(vb>=0){
                 if(g.sl[i1][j1]=='1' and g.sl[i2][j2]=='1'){
                     g.sl[i1][j1]='B';
                     g.sl[i2][j2]='B';
                 }
             }
-        }
-        else{
-            b_placer = false;
         }
 
         ++dn;
@@ -389,11 +384,6 @@ void place_jaune(grille_complete & g,int & dp){
                     g.sl[i][j]='J';
                 }
             }
-            else{
-                if(g.sl[i][j]=='1'){
-                    g.sl[i][j]='V';
-                }
-            }
         }
         else{
             j_placer = false;
@@ -403,12 +393,8 @@ void place_jaune(grille_complete & g,int & dp){
     }
 }
 
-void place_jaune2(grille_complete & g, int & dp){
-
-}
-
 void place_zero(grille_complete & g){
-    int m=recherche_min_positif(g.vt,g.t)-1,poi_j,pen_j,poi_v,pen_v,i=g.vt[m][1],j=g.vt[m][2];
+    int m=recherche_min_positif(g,g.vt,g.t)-1,poi_j,pen_j,poi_v,pen_v,i=g.vt[m][1],j=g.vt[m][2];
     
     bool fin=true;
     while(fin){

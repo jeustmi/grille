@@ -76,12 +76,12 @@ int main(){
         place_orange(grille,dn);
         affichage_mat_sl(grille.sl,grille.n);
         std::cout<<std::endl<<std::endl<<std::endl;
-        /*place_bleu(grille,dn);
+        place_bleu(grille,dn);
         affichage_mat_sl(grille.sl,grille.n);
         std::cout<<std::endl<<std::endl<<std::endl;
         place_jaune(grille,dp);
         affichage_mat_sl(grille.sl,grille.n);
-        std::cout<<std::endl<<std::endl<<std::endl;*/
+        std::cout<<std::endl<<std::endl<<std::endl;
         
     }
 
