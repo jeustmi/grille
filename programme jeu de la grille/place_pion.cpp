@@ -1,20 +1,17 @@
 #include "place_pion.hpp"
 #include "calcul_score.hpp"
 
-void init_sl(grille_complete & g){//inite la grille de solution avec des '1'
+void init_sl(grille_complete & g){//init la grille de solution avec des '1'
     for(int i=0; i<g.n ; ++i){
         for(int j=0; j<g.n ; ++j){
             g.sl[i][j]='1';
-            
         }
     }
 }
 
 void placePionRouge(grille_complete & g,int & dn){//place le pion rouge sur la case avec la plus petite valeur
     g.sl[g.vt[0][1]][g.vt[0][2]]='R';
-    std::cout<<dn<<std::endl;
     ++dn;
-    std::cout<<dn<<std::endl;
 }
 
 void trouve_dp_dn(grille_complete & g, int & dp,int & dn){ //si la grille est remplie, renvoie 0 pour dn et dp
@@ -33,22 +30,25 @@ void trouve_dp_dn(grille_complete & g, int & dp,int & dn){ //si la grille est re
         }
     }
     int k=0;
+
+    //boucle de test
     /*for(int i=0; i<g.n ; ++i){
         for(int j=0; j<g.n ; ++j){
             std::cout<<k<<" valeur : "<<g.vt[k][0]<<" i :"<<g.vt[k][1]<<" j :"<<g.vt[k][2]<<std::endl;
             ++k;
         }
     }*/
+
 }
 
 void place_noir(grille_complete & g,int & dp){
     mat_tri vert_mat;
     tab_tri vert_tab;
     int vn=0,poi_v,serarien;
-    int nn=0; //nn le nombre de noire placer
+    int nn=0; //nombre de noirs places
     int poi_tot,pen_tot,i,j;
 
-    bool n_placer = true; //est vrais tant que tout les noir ne sont pas placer correctement
+    bool n_placer = true; //est vrai tant que tout les noirs ne sont pas places correctement
     while (n_placer and dp<g.t){
         if(g.vt[g.t-1-dp][0]>2){
             poi_tot=0;
@@ -273,70 +273,7 @@ void place_vert(grille_complete & g){
     g.sl[vert_pos_mat[0][1]][vert_pos_mat[0][2]]='1';*/
 }
 
-void place_orange(grille_complete & g,int & dn){
-    int pen_tot_o,poi_tot_v,pen_tot_v,i,j,p_v,rine;
-    trouve_dp_dn(g,rine,dn);
-    bool o_placer = true; //est vrais tant que tout les noir ne sont pas placer correctement
-    while (o_placer and dn<g.t){
-        if(g.vt[dn][0]<0){
-            poi_tot_v=0;
-            pen_tot_v=0;
-            pen_tot_o=0;
-            i=g.vt[dn][1];
-            j=g.vt[dn][2];
-            jeton_v(g,poi_tot_v,pen_tot_v,i,j);
-            jeton_o(g,pen_tot_o,i,j);
-            p_v=poi_tot_v-(pen_tot_v); 
-            if((pen_tot_o==0 and -g.nb[i][j]>p_v)){
-                if(g.sl[i][j]=='1'){
-                    g.sl[i][j]='O';
-                }
-            }
-            else if(p_v>0){
-                if(g.sl[i][j]=='1'){
-                    g.sl[i][j]='V';
-                }
-            }
-        }
-        else{
-            o_placer = false;
-        }
-        
-        ++dn;
-    }
-}
-
-void place_orange2(grille_complete & g,int & dn){
-    int pen_tot_o,poi_tot_v,pen_tot_v,i,j,p_v;
-    int a;
-    a=recherche_min_positif(g.vt,g.t);
-    //bool o_placer = true; //est vrais tant que tout les noir ne sont pas placer correctement
-    std::cout<<dn<<std::endl;
-    while(dn<a){
-        /*poi_tot_v=0;
-        pen_tot_v=0;*/
-        pen_tot_o=0;
-        i=g.vt[dn][1];
-        j=g.vt[dn][2];
-        //jeton_v(g,poi_tot_v,pen_tot_v,i,j);
-        //p_v=poi_tot_v-(pen_tot_v);
-        jeton_o(g,pen_tot_o,i,j);
-        if(pen_tot_o==0){
-            if(g.sl[i][j]=='1'){
-                g.sl[i][j]='O';
-            }
-        }
-        /*else if(p_v>0){
-            if(g.sl[i][j]=='1'){
-                g.sl[i][j]='V';
-            }
-        }*/
-
-        ++dn;
-    }
-}
-
-void place_orange3(grille_complete & g,int & dn){ //place la meilleure position des oranges, dans certains cas
+void place_orange(grille_complete & g,int & dn){ //place la meilleure position des oranges, dans certains cas
     mat_tri or_mat;
     tab_tri or_tab;
     int or_mat_n,a,rine,k,i,pen;

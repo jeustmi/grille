@@ -73,7 +73,7 @@ int main(){
         affichage_mat_sl(grille.sl,grille.n);
         std::cout<<std::endl<<std::endl<<std::endl;
         
-        place_orange3(grille,dn);
+        place_orange(grille,dn);
         affichage_mat_sl(grille.sl,grille.n);
         std::cout<<std::endl<<std::endl<<std::endl;
         /*place_bleu(grille,dn);
@@ -90,7 +90,7 @@ int main(){
         tri_selection(grille);
         init_sl(grille);
         int dn=0,dp=0;
-        place_orange3(grille,dn);
+        place_orange(grille,dn);
         affichage_mat_sl(grille.sl,grille.n);
     }
     
