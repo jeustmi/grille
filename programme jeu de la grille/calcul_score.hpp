@@ -8,4 +8,3 @@ void jeton_b(grille_complete grille, int &pen_tot, int i, int j);
 void jeton_o(grille_complete &grille, int &pen_tot, int i, int j);
 
 void calcul_score(grille_complete &grille, int &score);
-int calcul_b_j(grille_complete &grille);
