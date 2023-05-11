@@ -133,3 +133,4 @@ void calcul_score(grille_complete &grille, int &score){
     std::cout<<poi_tot<<std::endl;
     score=poi_tot;
 }
+
