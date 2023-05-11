@@ -55,8 +55,8 @@ int main(){
         //affiche_tab_tri(grille);
         std::cout<<std::endl;
 
-        init_sl(grille);
-        /*place_vert(grille);
+        /*init_sl(grille);
+        place_vert(grille);
         affichage_mat_sl(grille.sl,grille.n);
         std::cout<<std::endl<<std::endl<<std::endl;*/
 
@@ -68,11 +68,12 @@ int main(){
         place_noir(grille,dp);
         affichage_mat_sl(grille.sl,grille.n);
         std::cout<<std::endl<<std::endl<<std::endl;
+ 
         std::cout<<"feur"<<std::endl;
-
         place_vert(grille);
         affichage_mat_sl(grille.sl,grille.n);
         std::cout<<std::endl<<std::endl<<std::endl;
+
         
         place_orange(grille,dn);
         affichage_mat_sl(grille.sl,grille.n);

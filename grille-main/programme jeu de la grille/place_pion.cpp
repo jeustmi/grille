@@ -322,17 +322,17 @@ void place_jaune(grille_complete & g){
         if(g.sl[i][j]=='1'){
             if(i==0){
                 if(j==0){
-                    if(g.sl[i][j+1]=='1' or g.sl[i+1][j]=='1' or g.sl[i+1][j+1]=='1'){
+                    if((g.sl[i][j+1]=='1') or (g.sl[i+1][j]=='1') or (g.sl[i+1][j+1]=='1')){
                         g.sl[i][j]='J';
                     }
                 }
                 else if(j==g.n-1){
-                    if(g.sl[i][j-1]=='1' or g.sl[i+1][j]=='1' or g.sl[i+1][j-1]=='1'){
+                    if((g.sl[i][j-1]=='1') or (g.sl[i+1][j]=='1') or (g.sl[i+1][j-1]=='1')){
                         g.sl[i][j]='J';
                     }
                 }
                 else{
-                    if(g.sl[i][j-1]=='1' or g.sl[i+1][j]=='1' or g.sl[i+1][j-1]=='1' or g.sl[i][j+1]=='1'or g.sl[i+1][j+1]=='1'){
+                    if((g.sl[i][j-1]=='1') or (g.sl[i+1][j]=='1') or (g.sl[i+1][j-1]=='1') or (g.sl[i][j+1]=='1') or (g.sl[i+1][j+1]=='1')){
                         g.sl[i][j]='J';
                     }
                 }
@@ -340,39 +340,37 @@ void place_jaune(grille_complete & g){
             }
             else if(i==g.n-1){
                 if(j==0){
-                    if(g.sl[i][j+1]=='1' or g.sl[i-1][j]=='1' or g.sl[i-1][j+1]=='1'){
+                    if(( g.sl[i][j+1]=='1') or  (g.sl[i-1][j]=='1') or (g.sl[i-1][j+1]=='1')){
                         g.sl[i][j]='J';
                     }
                 }
                 else if(j==g.n-1){
-                    if(g.sl[i][j-1]=='1' or g.sl[i-1][j]=='1' or g.sl[i-1][j-1]=='1'){
+                    if((g.sl[i][j-1]=='1') or (g.sl[i-1][j]=='1') or (g.sl[i-1][j-1]=='1')){
                         g.sl[i][j]='J';
                     }
                 }
                 else{
-                    if(g.sl[i][j-1]=='1' or g.sl[i-1][j]=='1' or g.sl[i-1][j-1]=='1' or g.sl[i][j-1]=='1'or g.sl[i-1][j+1]=='1'){
+                    if((g.sl[i][j-1]=='1') or (g.sl[i-1][j]=='1') or (g.sl[i-1][j-1]=='1') or (g.sl[i][j-1]=='1') or (g.sl[i-1][j+1]=='1')){
                         g.sl[i][j]='J';
                     }
                 }
+            }
             else{
                 if(j==0){
-                    if(g.sl[i][j+1]=='1' or g.sl[i+1][j]=='1' or g.sl[i+1][j+1]=='1' or g.sl[i-1][j]=='1'or g.sl[i-1][j+1]=='1'){
+                    if((g.sl[i][j+1]=='1') or (g.sl[i+1][j]=='1') or (g.sl[i+1][j+1]=='1') or (g.sl[i-1][j]=='1') or (g.sl[i-1][j+1]=='1')){
                         g.sl[i][j]='J';
                     }
                 }
                 else if(j==g.n-1){
-                    if(g.sl[i][j-1]=='1' or g.sl[i+1][j]=='1' or g.sl[i+1][j-1]=='1' or g.sl[i-1][j]=='1'or g.sl[i-1][j-1]=='1'){
+                    if((g.sl[i][j-1]=='1') or (g.sl[i+1][j]=='1') or (g.sl[i+1][j-1]=='1') or (g.sl[i-1][j]=='1') or (g.sl[i-1][j-1]=='1')){
                         g.sl[i][j]='J';
                     }
                 }
                 else{
-                    if(g.sl[i-1][j-1]=='1' or g.sl[i-1][j]=='1' or g.sl[i-1][j+1]=='1' or g.sl[i][j-1]=='1'or g.sl[i][j+1]=='1' g.sl[i-1][j-1]=='1' or g.sl[i-1][j]=='1' or g.sl[i-1][j+1]=='1'){
+                    if((g.sl[i-1][j-1]=='1') or (g.sl[i-1][j]=='1') or (g.sl[i-1][j+1]=='1') or (g.sl[i][j-1]=='1') or (g.sl[i][j+1]=='1') or (g.sl[i-1][j-1]=='1') or (g.sl[i-1][j]=='1') or (g.sl[i-1][j+1]=='1')){
                         g.sl[i][j]='J';
                     }
                 }
-
-            }
-
             }
         }
     }
@@ -402,6 +400,7 @@ void place_zero(grille_complete & g){
         }
     }
 }
+
 void place_fin(grille_complete & g){
     int i,j;
     for(int h=0; h<g.t ; ++h){
@@ -410,5 +409,5 @@ void place_fin(grille_complete & g){
         if(g.sl[i][j]=='1'){
             g.sl[i][j]='B';
         }
-
+    }
 }
