@@ -112,8 +112,8 @@ void place_noir(grille_complete & g,int & dp){
 }
 
 using vect_co=std::array<int,3>; //contient les coordonnées d'un pion enlevé en position 0 et 1 et la boucle à laquelle il a été enlevé
-using mat2=std::array<vect_co,512>; //contient une combinaison de pions, avec le score en position 0, le nombre de pions enlevés de cette combinaison en position 1 et chaque pion enlevé aux positions suivantes
-using mat3=std::array<mat2,512>; //contient les combinaisons testées à l'instant, triées en fonction du score à partir de la position 1, et avec la meilleure combinaison d'avant en position 0
+using mat2=std::array<vect_co,750>; //contient une combinaison de pions, avec le score en position 0, le nombre de pions enlevés de cette combinaison en position 1 et chaque pion enlevé aux positions suivantes
+using mat3=std::array<mat2,750>; //contient les combinaisons testées à l'instant, triées en fonction du score à partir de la position 1, et avec la meilleure combinaison d'avant en position 0
 
             //cette fonction teste les meilleures combinaisons de verts à partir de toutes les cases possibles
 void compte_vert(grille_complete & g, mat3 & val_comb_vert, mat_tri & vert_pos_mat, int vpm_n, bool & fin){
