@@ -32,6 +32,7 @@ int recherche_min_positif(grille_complete & g){
     }
     return k-1;
 }
+
 int trouve_dn(grille_complete & g, int dn){
     bool trouve_n = false;
     dn=0;
@@ -43,6 +44,7 @@ int trouve_dn(grille_complete & g, int dn){
     }
     return dn;
 }
+
 int trouve_dp(grille_complete & g, int dp){
     bool trouve_p = false;
     dp=0;
@@ -52,14 +54,13 @@ int trouve_dp(grille_complete & g, int dp){
             trouve_p=true;
         }
     }
-    return dp;
-    
+    return dp;    
 }
+
 void placePionRouge(grille_complete & g,int & dn){//place le pion rouge sur la case avec la plus petite valeur
     g.sl[g.vt[0][1]][g.vt[0][2]]='R';
     ++dn;
 }
-
 
 void place_noir(grille_complete & g,int & dp){
     mat_tri vert_mat;
@@ -343,6 +344,7 @@ void place_bleu(grille_complete & g,int & dn){
         }
     }
 }*/
+
 void place_jaune(grille_complete & g){
     int i,j;
     for(int h=0; h<g.t ; ++h){
@@ -352,7 +354,6 @@ void place_jaune(grille_complete & g){
             g.sl[i][j]='J';
         }
     }
-        
 }
 
 void place_zero(grille_complete & g){
