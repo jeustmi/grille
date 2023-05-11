@@ -1,0 +1,6 @@
+déplacer le fichier sous la forme "probleme_n1_a-z.txt" (changer n1 par un chiffre et a-z par une lettre) venant de moodle dans le dossier du programme
+créer un fichier "sl_probleme_n1_a-z_n2.txt" contenant une grille n1*n1 de jetons que vous devez créer dans le dossier
+exécuter le programme
+rentrer n1, a-z, et n2 quand demandé
+il y a normalement un nouveau fichier nommé "sl_probleme_n1_a-z_n2.txt" dans le dossier
+ce fichier contient la grille de jetons donnée avec le score de cette disposition pour cette grille de nombres

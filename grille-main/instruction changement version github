@@ -1,0 +1,16 @@
+git clone https://github.com/jeustmi/grille.git
+git config --global user.email "..."
+git config --global user.name "..."
+
+
+cd grille/
+touch ...
+...
+...
+git add -A //ou le nom du fichier
+git commit -m "..."
+git push
+-> connexion
+
+git pull --all
+-> connexion
