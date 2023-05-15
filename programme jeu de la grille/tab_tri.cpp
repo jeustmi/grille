@@ -16,7 +16,7 @@ void affiche_tab_tri(grille_complete g){ //affiche les valeur de la grille et le
     int k=0;
     for(int i=0; i<g.n ; ++i){
         for(int j=0; j<g.n ; ++j){
-            std::cout<<"valeur : "<<g.vt[k][0]<<" i :"<<g.vt[k][1]<<" j :"<<g.vt[k][2]<<std::endl;
+            //std::cout<<"valeur : "<<g.vt[k][0]<<" i :"<<g.vt[k][1]<<" j :"<<g.vt[k][2]<<std::endl;
             ++k;
         }
     }

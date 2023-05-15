@@ -26,6 +26,7 @@ int main(){
     std::cout<<"Voulez-vous tester une solution déjà existante (rentrez 1) ou en créer une (rentrez 2) ? "; //
     std::cin>>type_programme; //fin suppr
     
+    std::cout<<std::endl;
     lecture_fichier_nb(fichier_grille,grille);
     affichage_mat_nb(grille.nb,grille.n); //vérification de la grille de nombres
 
@@ -34,8 +35,8 @@ int main(){
         std::cin>>fic_test_sol;
 
         ch fic_sl_fin;
-        fic_sl_fin=fols+"sl_"+fic_test_sol+"_score.txt";
-        fic_test_sol=fols+"sl_"+fic_test_sol+".txt";
+        fic_sl_fin=fols+fic_test_sol+"_score.txt";
+        fic_test_sol=fols+fic_test_sol+".txt";
 
         lecture_fichier_sl(fic_test_sol,grille);
         affichage_mat_sl(grille.sl,grille.n); //vérification de la grille solution
@@ -46,17 +47,17 @@ int main(){
 
     else if(type_programme==2){
 
-            std::cout<<std::endl;
+            //std::cout<<std::endl;
 
         init_tab_tri(grille);
         //affiche_tab_tri(grille);
 
-            std::cout<<std::endl;
+            //std::cout<<std::endl;
 
         tri_selection(grille);
         //affiche_tab_tri(grille);
 
-            std::cout<<std::endl;
+            //std::cout<<std::endl;
 
         init_sl(grille);
 
@@ -64,37 +65,36 @@ int main(){
         init_sl(grille);
         placePionRouge(grille,dn);
 
-            affichage_mat_sl(grille.sl,grille.n);
-            std::cout<<std::endl<<std::endl<<std::endl;
+            //affichage_mat_sl(grille.sl,grille.n);
+            //std::cout<<std::endl<<std::endl<<std::endl;
 
         place_noir(grille,dp);
 
-            affichage_mat_sl(grille.sl,grille.n);
-            std::cout<<std::endl<<std::endl<<std::endl;
+            //affichage_mat_sl(grille.sl,grille.n);
+            //std::cout<<std::endl<<std::endl<<std::endl;
 
         place_vert(grille);
 
-            affichage_mat_sl(grille.sl,grille.n);
-            std::cout<<std::endl<<std::endl<<std::endl;
+            //affichage_mat_sl(grille.sl,grille.n);
+            //std::cout<<std::endl<<std::endl<<std::endl;
         
         place_orange(grille,dn);
 
-            affichage_mat_sl(grille.sl,grille.n);
-            std::cout<<std::endl<<std::endl<<std::endl;
+            //affichage_mat_sl(grille.sl,grille.n);
+            //std::cout<<std::endl<<std::endl<<std::endl;
 
         place_bleu(grille,dn);
 
-            affichage_mat_sl(grille.sl,grille.n);
-            std::cout<<std::endl<<std::endl<<std::endl;
+            //affichage_mat_sl(grille.sl,grille.n);
+            //std::cout<<std::endl<<std::endl<<std::endl;
 
         place_jaune(grille);
 
-            affichage_mat_sl(grille.sl,grille.n);
-            std::cout<<std::endl<<std::endl<<std::endl;
+            //affichage_mat_sl(grille.sl,grille.n);
+            //std::cout<<std::endl<<std::endl<<std::endl;
 
         int score=0;
-        calcul_score(grille, score);
-
+        std::cout<<std::endl;
         écriture_fichier_solution(grille,fichier_solution);
     }
     

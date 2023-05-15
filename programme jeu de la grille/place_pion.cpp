@@ -349,6 +349,37 @@ void place_jaune(grille_complete & g){
     for(int h=0; h<g.t ; ++h){
         i=g.vt[h][1];
         j=g.vt[h][2];
+        if(g.sl[i][j]=='1' and g.nb[i][j]>-g.p){
+            g.sl[i][j]='J';
+        }
+    }
+    int poi,pen;
+    for(int i=0;i<g.n;++i){
+        for(int j=0;j<g.n;j++){
+            poi=0;
+            pen=0;
+            if(g.sl[i][j]=='J'){
+                jeton_j(g,poi,pen,i,j);
+                if(pen>0 and poi<g.p){
+                    g.sl[i][j]='B';
+                }
+            }
+        }
+    }
+    for(int h=0; h<g.t ; ++h){
+        i=g.vt[h][1];
+        j=g.vt[h][2];
+        if(g.sl[i][j]=='1'){
+            g.sl[i][j]='B';
+        }
+    }
+}
+
+void place_jaune1(grille_complete & g){ //ancien place_jaune, moins ouf que le nouveau
+    int i,j;
+    for(int h=0; h<g.t ; ++h){
+        i=g.vt[h][1];
+        j=g.vt[h][2];
         if(g.sl[i][j]=='1'){
             g.sl[i][j]='J';
         }

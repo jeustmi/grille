@@ -25,5 +25,5 @@ void compte_jeton(grille_complete &grille){ //compte le nombre de jeton de chaqu
             }
         }
     }
-    std::cout<<grille.J<<" "<<grille.V<<" "<<grille.N<<" "<<grille.B<<" "<<grille.O<<" "<<grille.R<<std::endl; //simple vérification
+    //std::cout<<grille.J<<" "<<grille.V<<" "<<grille.N<<" "<<grille.B<<" "<<grille.O<<" "<<grille.R<<std::endl; //simple vérification
 }
