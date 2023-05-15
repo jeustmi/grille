@@ -65,7 +65,7 @@ void placePionRouge(grille_complete & g,int & dn){//place le pion rouge sur la c
 void place_noir(grille_complete & g,int & dp){
     mat_tri vert_mat;
     tab_tri vert_tab;
-    int vn=0,poi_v,serarien;
+    int vn=0,poi_v,cette_variable_est_utilisee_dans_jeton_v_mais_en_fait_on_sen_sert_pas_apres_du_coup_je_lappelle_comme_ca;
     int nn=0; //nombre de noirs places
     int poi_tot,pen_tot,i,j;
 
@@ -89,7 +89,7 @@ void place_noir(grille_complete & g,int & dp){
                     g.sl[i][j]='V';
                 }
                 poi_v=0;
-                jeton_v(g,poi_v,serarien,i,j);
+                jeton_v(g,poi_v,cette_variable_est_utilisee_dans_jeton_v_mais_en_fait_on_sen_sert_pas_apres_du_coup_je_lappelle_comme_ca,i,j);
                 vert_tab={poi_v,i,j};
                 ++vn;
                 int k;
@@ -186,7 +186,7 @@ void place_vert(grille_complete & g){
     vn=0;
     for(i=0;i<g.n;i++){ 
         for(j=0;j<g.n;j++){
-            if(g.sl[i][j]=='1'){ //on regarde toutes les cases non prises
+            if(g.sl[i][j]=='1' or g.sl[i][j]=='V'){ //on regarde toutes les cases non prises
                 poi=0;
                 pen=0;
                 jeton_v(g,poi,pen,i,j); //on compte les points de cette case si on mettait un vert dessus
@@ -310,7 +310,6 @@ void place_bleu(grille_complete & g,int & dn){
                 }
             }
         }
-
     }
 }
 
@@ -352,6 +351,19 @@ void place_jaune(grille_complete & g){
         j=g.vt[h][2];
         if(g.sl[i][j]=='1'){
             g.sl[i][j]='J';
+        }
+    }
+    int poi,pen;
+    for(int i=0;i<g.n;++i){
+        for(int j=0;j<g.n;j++){
+            poi=0;
+            pen=0;
+            if(g.sl[i][j]=='J'){
+                jeton_j(g,poi,pen,i,j);
+                if(pen>0 and poi<g.p){
+                    g.sl[i][j]='B';
+                }
+            }
         }
     }
 }
