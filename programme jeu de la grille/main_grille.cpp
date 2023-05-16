@@ -9,7 +9,6 @@
 
 //g++ main_grille.cpp lecture_fichier.cpp aff_mat.cpp compte_jetons.cpp calcul_score.cpp struct.cpp ecriture_fichier.cpp tab_tri.cpp place_pion.cpp -o prog.out
 
-
 int main(){
     grille_complete grille;
     ch taille_grille,lettre_grille,numero_test;

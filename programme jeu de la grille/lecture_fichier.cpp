@@ -2,8 +2,6 @@
 
 #include "lecture_fichier.hpp"
 
-using fif=std::ifstream;
-
 void lecture_fichier_nb(ch fic,grille_complete &grille){ //lit un fichier de la forme grille.nb avec n et p en en-tête (entrée)
     fif grille_fichier(fic);
     int e;
