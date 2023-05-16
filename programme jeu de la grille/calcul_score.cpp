@@ -57,6 +57,7 @@ void jeton_r(grille_complete grille, int &poi_tot, int i, int j){ //poi, a besoi
 void jeton_b(grille_complete grille, int &pen_tot, int i, int j){ //pen, n'a pas besoin d'être appelé à chaque boucle
     int nb_pen_temp;
     nb_pen_temp=0;
+
     for(i=0;i<grille.n;++i){
         for(j=0;j<grille.n;++j){
             if(grille.sl[i][j]=='B'){
@@ -69,6 +70,7 @@ void jeton_b(grille_complete grille, int &pen_tot, int i, int j){ //pen, n'a pas
             } //on ne compte pas les cases = 0 car elles sont les deux, on fait donc nb_pen_temp+1 puis nb_pen_temp-1, donc ça ne sert à rien
         }
     }
+
     if(nb_pen_temp>0){ //si la différence est négative
         pen_tot+=nb_pen_temp*grille.p; //on ajoute cette différence aux pénalités
     }
@@ -83,11 +85,13 @@ void jeton_o(grille_complete &grille, int &pen_tot, int i, int j){ //pen + chang
             pen_tot+=grille.p; //pénalité si autre jeton orange sur la colonne
         }
     }
+
     for(int k=-std::min(i,j);k<grille.n-std::max(i,j);k++){
         if(k!=0 and grille.sl[i+k][j+k]=='O'){ //parcours de la grille en diagonale tl:dr
             pen_tot+=grille.p; //pénalité si un autre jeton orange sur la diagonale
         }
     }
+
     for(int k=-std::min(grille.n-1-i,j);k<grille.n-std::max(grille.n-1-i,j);k++){
         if(k!=0 and grille.sl[i-k][j+k]=='O'){ //parcours de la grille en diagonale dl:tr
             pen_tot+=grille.p; //pénalité si un autre jeton orange sur la diagonale
@@ -101,7 +105,9 @@ void calcul_score(grille_complete &grille, int &score){
     char jeton; //sert juste à ne pas réécrire grille[i][j] à chaque fois
     mat_sl save_grille_sl; //save de la grille pour pouvoir reourner aux valeur initiales car on change certains char en minuscule pour le comptage
     save_grille_sl=grille.sl;
+    
     jeton_b(grille,pen_tot,i,j);
+
     for(i=0;i<grille.n;++i){
         for(j=0;j<grille.n;++j){
             jeton=grille.sl[i][j];

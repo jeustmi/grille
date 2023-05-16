@@ -9,7 +9,7 @@ using mat_nb=std::array<tab_nb,128>;
 using tab_sl=std::array<char,128>;
 using mat_sl=std::array<tab_sl,128>;
 using tab_tri=std::array<int,3>;
-using mat_tri=std::array<tab_tri,16384>;
+using mat_tri=std::array<tab_tri,1024>;
 
 struct grille_complete{ //on fait une structure contenant toutes les informatiosn pour faciliter l'accès aux données (même si l'on n'a que ramement besoinde tous)
     mat_nb nb; //grille de nombres

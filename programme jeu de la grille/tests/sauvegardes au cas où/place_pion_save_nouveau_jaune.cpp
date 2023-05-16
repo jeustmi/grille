@@ -12,56 +12,48 @@ void init_sl(grille_complete & grille){//init la grille de solution avec des '1'
 int recherche_min_positif_mat(mat_tri mat, int t){
     int k=0;
     bool trouver=false;
-
     while(not trouver and k<t){
         if(mat[k][0]>0){
             trouver=true;
         }
         ++k;
     }
-
     return k-1;
 }
 
 int recherche_min_positif(grille_complete & grille){
     int k=0;
     bool trouver=false;
-
     while(not trouver and k<grille.t){
         if(grille.vt[k][0]>0 and grille.sl[grille.vt[k][1]][grille.vt[k][2]]=='1'){
             trouver=true;
         }
         ++k;
     }
-
     return k-1;
 }
 
 int trouve_dn(grille_complete & grille, int dn){
     bool trouve_n = false;
     dn=0;
-
     for(int i=1;i<grille.t-1;++i){
         if(trouve_n==false and grille.sl[grille.vt[i][1]][grille.vt[i][2]]=='1'){
             dn=i;
             trouve_n=true;
         }
     }
-
     return dn;
 }
 
 int trouve_dp(grille_complete & grille, int dp){
     bool trouve_p = false;
     dp=0;
-
     for(int i=0;i<grille.t-1;++i){
         if(trouve_p==false and grille.sl[grille.vt[i][1]][grille.vt[i][2]]=='1'){
             dp=i;
             trouve_p=true;
         }
     }
-
     return dp;    
 }
 
@@ -76,8 +68,8 @@ void place_noir(grille_complete & grille,int & dp){
     int vn=0,poi_v,cette_variable_est_utilisee_dans_jeton_v_mais_en_fait_on_sen_sert_pas_apres_du_coup_je_lappelle_comme_ca;
     int nn=0; //nombre de noirs places
     int poi_tot,pen_tot,i,j;
-    bool n_placer = true; //est vrai tant que tout les noirs ne sont pas places correctement
 
+    bool n_placer = true; //est vrai tant que tout les noirs ne sont pas places correctement
     while (n_placer and dp<grille.t){
         if(grille.vt[grille.t-1-dp][0]>2){
             poi_tot=0;
@@ -86,7 +78,6 @@ void place_noir(grille_complete & grille,int & dp){
             j=grille.vt[grille.t-1-dp][2];
             jeton_v(grille,poi_tot,pen_tot,i,j);
             //std::cout<<"pen_tot"<<pen_tot<<" poi_tot"<<poi_tot<<std::endl;
-
             if((2*(grille.vt[grille.t-1-dp][0]-1)>poi_tot-(pen_tot))){
                 if(grille.sl[i][j]=='1'){
                     grille.sl[i][j]='N';
@@ -103,15 +94,12 @@ void place_noir(grille_complete & grille,int & dp){
                 ++vn;
                 int k;
                 k=vn-1;
-
                 while ((k > 0) and (vert_mat[k-1][0] > vert_tab[0])){
                     vert_mat[k] = vert_mat[k-1];
                     --k;
                 }
-
                 vert_mat[k] = vert_tab;
             }
-
             if(nn==grille.n){
                 n_placer = false;
             } 
@@ -121,7 +109,6 @@ void place_noir(grille_complete & grille,int & dp){
         }
         ++dp;
     }
-
 }
 
 using vect_co=std::array<int,3>; //contient les coordonnées d'un pion enlevé en position 0 et 1 et la boucle à laquelle il a été enlevé
@@ -132,7 +119,6 @@ using mat3=std::array<mat2,750>; //contient les combinaisons testées à l'insta
 void compte_vert(grille_complete & grille, mat3 & val_comb_vert, mat_tri & vert_pos_mat, int vpm_n, bool & fin){
     int n;
     n=val_comb_vert[0][1][0]; //on initialise n au nombre de verts enlevés dans les tests
-
     for(int i=0;i<vpm_n-n;++i){ //on lance une boucle qui enleve chaque jeton restant un à un pour calculer le score, n augmentera donc forcément de 1
         int poi=0;
         int pen=0;
@@ -155,11 +141,20 @@ void compte_vert(grille_complete & grille, mat3 & val_comb_vert, mat_tri & vert_
             }
         }
 
+        //boucle de test 
+        /*std::cout<<std::endl<<pen<<" "<<poi<<std::endl<<std::endl;
+        for(int k=0;k<grille.n;++k){
+            for(int l=0;l<grille.n;++l){
+                std::cout<<grille.sl[k][l]<<" ";
+            }
+        std::cout<<std::endl;
+        }*/
+        //std::cout<<vert_pos_mat[i][0]<<" "<<vert_pos_mat[i][1]<<std::endl;
+
         grille.sl[vert_pos_mat[i][0]][vert_pos_mat[i][1]]='V'; //on replace le vert enleve (on ne le fait pas avant pour pouvoir faire une vérification avec des std::cout)
         val_1comb[0][0]=poi-pen; //on rentre le score de cette combinaison
 
         int j=i+1;
-
         while ((j>1) and (val_comb_vert[j-1][0][0] < val_1comb[0][0])){ //on trie par insertion les meilleures combinaisons de cette boucle
             val_comb_vert[j] = val_comb_vert[j-1];
             --j;
@@ -167,18 +162,14 @@ void compte_vert(grille_complete & grille, mat3 & val_comb_vert, mat_tri & vert_
         val_comb_vert[j]=val_1comb;
     }
     
-    int j=val_comb_vert[1][2+n][2]; //on met le pion enleve donnant le plus grand score a la fin de notre liste pour pouvoir ne plus le compter après
-    
+    int j=val_comb_vert[1][2+n][2]; //on met le pion eleve donnant le plus grand score a la fin de notre liste pour pouvoir ne plus le compter après
     tab_tri temp;
     temp=vert_pos_mat[j];
-
     while (j<vpm_n){
         vert_pos_mat[j] = vert_pos_mat[j+1];
         ++j;
     }
-
     vert_pos_mat[j]=temp;
-
     if(val_comb_vert[1][0][0]>=val_comb_vert[0][0][0]){ //si la combinaison actuelle est meilleure que celle d'avant, on recommence
         val_comb_vert[0]=val_comb_vert[1];
         grille.sl[val_comb_vert[0][2+n][0]][val_comb_vert[0][2+n][1]]='1';
@@ -193,7 +184,6 @@ void place_vert(grille_complete & grille){
     tab_tri vert_tab;
     int poi,pen,i,j,vn;
     vn=0;
-
     for(i=0;i<grille.n;i++){ 
         for(j=0;j<grille.n;j++){
             if(grille.sl[i][j]=='1' or grille.sl[i][j]=='V'){ //on regarde toutes les cases non prises
@@ -212,14 +202,12 @@ void place_vert(grille_complete & grille){
             }
         }
     }
-
     mat_tri vert_pos_mat;
     int a, vpm_n=0;
     poi=0;
     pen=0;
     i=vn-1;
     a=recherche_min_positif_mat(vert_mat,grille.t);
-
     while(i>=a){ //on ne garde que les meilleures cases (celles rapportant un score positif)
         jeton_v(grille,poi,pen,vert_mat[i][1],vert_mat[i][2]);
         grille.sl[vert_mat[i][1]][vert_mat[i][2]]='V'; //on pose un jeton sur chacune de ces cases
@@ -227,18 +215,15 @@ void place_vert(grille_complete & grille){
         ++vpm_n;
         --i;
     }
-
     mat3 val_comb_vert;
     val_comb_vert[0]={poi-pen,-2,-2,0,-2,-2}; //on initialise val_comb_vert
     bool fin=false;
-
     while(fin==false){ //on lance le programme pour trouver la meilleure combinaison de verts parmi ceux posés au début
         compte_vert(grille,val_comb_vert,vert_pos_mat,vpm_n,fin);
         if(val_comb_vert[0][1][0]==vpm_n){
             fin=true;
         }
     }
-
 }
 
 void place_orange(grille_complete & grille,int & dn){ //place la meilleure position des oranges, dans certains cas
@@ -251,7 +236,6 @@ void place_orange(grille_complete & grille,int & dn){ //place la meilleure posit
     //std::cout<<dn<<" "<<a<<std::endl;
     or_mat_n=0;
     i=dn;
-
     while(i<dn+a){
         if(grille.sl[grille.vt[i][1]][grille.vt[i][2]]=='1'){
             grille.sl[grille.vt[i][1]][grille.vt[i][2]]='O';
@@ -261,10 +245,13 @@ void place_orange(grille_complete & grille,int & dn){ //place la meilleure posit
         }
         ++i;
     }
-
+    /*for(int i=dn;i<dn+a;i++){
+        or_mat[k][0]=grille.vt[i][1];
+        or_mat[k][1]=grille.vt[i][2];
+        ++k;
+    }*/
     bool fin=false;
     or_mat[or_mat_n-1][0]=42;
-
     while(fin==false){
         if(or_mat[or_mat_n-1][0]!=0){
             grille.sl[or_mat[or_mat_n-1][1]][or_mat[or_mat_n-1][2]]='1';
@@ -287,7 +274,6 @@ void place_orange(grille_complete & grille,int & dn){ //place la meilleure posit
             fin=true;
         }
     }
-
 }
 
 void place_bleu(grille_complete & grille,int & dn){
@@ -325,12 +311,41 @@ void place_bleu(grille_complete & grille,int & dn){
             }
         }
     }
-
 }
+
+/*void place_jaune(grille_complete & grille,int & dp){
+    int poi_tot_j,pen_tot_j,i,j,rien;
+    dp=trouve_dp(grille,dp);
+    bool j_placer = true; //est vrais tant que tout les noir ne sont pas placer correctement
+    while (j_placer and dp<grille.t and dp>1){
+        dp=trouve_dp(grille,dp);
+        poi_tot_j=0;
+        pen_tot_j=0;
+        i=grille.vt[dp][1];
+        j=grille.vt[dp][2];
+        std::cout<<" i: "<<i<<" j: "<<j<<std::endl;
+        jeton_j(grille,poi_tot_j,pen_tot_j,i,j);
+        std::cout<<"poi_tot_j-pen_tot_j : "<<poi_tot_j-pen_tot_j<<std::endl;
+        
+        if(grille.sl[i][j]!='1'){
+            j_placer = false;
+        }
+
+        else if(poi_tot_j-pen_tot_j>=-grille.p){
+             std::cout<<"cc"<<std::endl;
+            if(grille.sl[i][j]=='1'){
+                grille.sl[i][j]='J';
+            }
+    
+        }
+        else{
+            j_placer = false;
+        }
+    }
+}*/
 
 void place_jaune(grille_complete & grille){
     int i,j;
-
     for(int h=0; h<grille.t ; ++h){
         i=grille.vt[h][1];
         j=grille.vt[h][2];
@@ -338,9 +353,7 @@ void place_jaune(grille_complete & grille){
             grille.sl[i][j]='J';
         }
     }
-
     int poi,pen;
-
     for(int i=0;i<grille.n;++i){
         for(int j=0;j<grille.n;j++){
             poi=0;
@@ -353,7 +366,6 @@ void place_jaune(grille_complete & grille){
             }
         }
     }
-
     for(int h=0; h<grille.t ; ++h){
         i=grille.vt[h][1];
         j=grille.vt[h][2];
@@ -361,12 +373,10 @@ void place_jaune(grille_complete & grille){
             grille.sl[i][j]='B';
         }
     }
-
 }
 
 void place_jaune1(grille_complete & grille){ //ancien place_jaune, moins ouf que le nouveau
     int i,j;
-
     for(int h=0; h<grille.t ; ++h){
         i=grille.vt[h][1];
         j=grille.vt[h][2];
@@ -374,9 +384,7 @@ void place_jaune1(grille_complete & grille){ //ancien place_jaune, moins ouf que
             grille.sl[i][j]='J';
         }
     }
-
     int poi,pen;
-
     for(int i=0;i<grille.n;++i){
         for(int j=0;j<grille.n;j++){
             poi=0;
@@ -390,3 +398,28 @@ void place_jaune1(grille_complete & grille){ //ancien place_jaune, moins ouf que
         }
     }
 }
+
+/*void place_zero(grille_complete & grille){
+    int m=recherche_min_positif(grille)-1,poi_j,pen_j,poi_v,pen_v,i=grille.vt[m][1],j=grille.vt[m][2];
+    
+    bool fin=true;
+    while(fin){
+        if(grille.vt[m][0]==0 and grille.sl[i][j]=='1'){
+            jeton_v(grille,poi_v,pen_v,i,j);
+            jeton_j(grille,poi_j,pen_j,i,j);
+            if(poi_v-pen_v>0){
+                grille.sl[i][j]='V';
+            }
+            else if(pen_j==0){
+                grille.sl[i][j]='J';
+            }
+            else{
+                grille.sl[i][j]='B';
+            }
+            --m;
+        }
+        else{
+            fin=false;
+        }
+    }
+}*/
