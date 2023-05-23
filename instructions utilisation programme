@@ -1,0 +1,13 @@
+Pour utiliser le programme, déplacez-vous dans le dossier "programme jeu de la grille" et compiler en utilisant la commande présente en commentaire au début de main.cpp
+
+Une fois le code compilé, lancez le programme grâce à la commande "./programme_grille.out" puis rentrez le nom du fichier contenant la grille de nombres à tester
+
+Attention, le nom du fichier est simplement le nom donné par le créateur, c'est-à-dire que le dossier et l'extension ne doivent pas apparaître dans le nom rentré sur la console. 
+Par exemple, le fichier grille/fichiers_grille/grilles/grille_4_a.txt devra être rentré dans la console par l'utilisateur avec "grille_4_a" quand demandé
+
+Pour faire cela facilement, vous pouvez sélectionner le fichier voulu dans un explorateur de fichiers, appuyer sur F2 pour le rennommer et ensuite appuyer sur Ctrl+C pour copier le nom, qui sera normalement dans la bonne forme, pour ensuite le coller dans la console avec Ctrl + Maj + V
+
+
+Attention, pour les grilles les plus grandes, il est possible que le programme ne puisse pas s'exécuter en entier car trop de valeurs ont dû être stockées dans un array trop petit pour cela.
+Il n'est malheureusement pas possible de régler ce problème en augmentant simplement la taille maximum de l'array, car celle-ci est limitée par la puissance de la machine utilisant le programme.
+Pour utiliser le programme normalement il faudrait donc, si un problème est rencontré, changer d'ordinateur pour un plus puissant.

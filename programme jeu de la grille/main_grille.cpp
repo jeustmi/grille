@@ -7,15 +7,16 @@
 #include "tab_tri.hpp"
 #include "place_pion.hpp"
 
-//g++ main_grille.cpp lecture_fichier.cpp aff_mat.cpp compte_jetons.cpp calcul_score.cpp struct.cpp ecriture_fichier.cpp tab_tri.cpp place_pion.cpp -o prog.out
+//Il suffit de copier la commande suivante dans le console ouverte au bon dossier :
+//g++ main_grille.cpp lecture_fichier.cpp aff_mat.cpp compte_jetons.cpp calcul_score.cpp struct.cpp ecriture_fichier.cpp tab_tri.cpp place_pion.cpp -o programme_grille.out
 
 int main(){
     grille_complete grille;
     ch taille_grille,lettre_grille,numero_test;
     ch fichier,fichier_grille,fichier_solution,fic_test_sol;
-    ch folg="fic/grilles/",fols="fic/solutions/";
+    ch folg="../fichiers_grille/grilles/",fols="../fichiers_grille/solutions/";
 
-    std::cout<<"Rentrez le nom du fichier contenant la grille (veuillez respecter les consignes données) : (mets juste le nom du fichier sans fic/ ou .txt)";
+    std::cout<<"Rentrez le nom du fichier contenant la grille (veuillez respecter les consignes données dans le fichier \"instructions utilisation programme\") : ";
     std::cin>>fichier;
 
     fichier_grille=folg+fichier+".txt";
