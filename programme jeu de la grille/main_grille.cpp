@@ -38,6 +38,8 @@ int main(){
     place_bleu(grille,dn);
     place_jaune(grille);
 
+    affichage_mat_sl(grille.sl,grille.n);
+
     int score=0;
     std::cout<<std::endl;
     écriture_fichier_solution(grille,fichier_solution);

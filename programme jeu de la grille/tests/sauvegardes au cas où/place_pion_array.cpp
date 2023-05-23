@@ -126,30 +126,20 @@ void place_noir(grille_complete & grille,int & dp){
 
 //                                                          ATTENTION
 //             La taille de mat2 et mat3 peut être trop élevée pour certains pc, conduisant à un malfonctionnement du programme
-//using vect_co=std::array<int,3>; //contient les coordonnées d'un pion enlevé en position 0 et 1 et la boucle à laquelle il a été enlevé
-//using mat2=std::array<vect_co,600>; //contient une combinaison de pions, avec le score en position 0, le nombre de pions enlevés de cette combinaison en position 1 et chaque pion enlevé aux positions suivantes
-//using mat3=std::array<mat2,600>; //contient les combinaisons testées à l'instant, triées en fonction du score à partir de la position 1, et avec la meilleure combinaison d'avant en position 0
+using vect_co=std::array<int,3>; //contient les coordonnées d'un pion enlevé en position 0 et 1 et la boucle à laquelle il a été enlevé
+using mat2=std::array<vect_co,600>; //contient une combinaison de pions, avec le score en position 0, le nombre de pions enlevés de cette combinaison en position 1 et chaque pion enlevé aux positions suivantes
+using mat3=std::array<mat2,600>; //contient les combinaisons testées à l'instant, triées en fonction du score à partir de la position 1, et avec la meilleure combinaison d'avant en position 0
 
             //cette fonction teste les meilleures combinaisons de verts à partir de toutes les cases possibles
-void compte_vert(grille_complete & grille, int *** val_comb_vert, mat_tri & vert_pos_mat, int vpm_n, bool & fin){
+void compte_vert(grille_complete & grille, mat3 & val_comb_vert, mat_tri & vert_pos_mat, int vpm_n, bool & fin){
     int n;
     n=val_comb_vert[0][1][0]; //on initialise n au nombre de verts enlevés dans les tests
 
     for(int i=0;i<vpm_n-n;++i){ //on lance une boucle qui enleve chaque jeton restant un à un pour calculer le score, n augmentera donc forcément de 1
         int poi=0;
         int pen=0;
-        int ** val_1comb;
-        val_1comb=new int*[4096];
-        for(int j=0;j<4096;++j){
-            val_1comb[j]=new int[3];
-        }
-        //mat2 val_1comb;
-        //val_1comb=val_comb_vert[0]; 
-        for(int j=0;j<4+n;++j){ //on fait cette affectation pour garder en mémoire les pions deja enleves, on rajoutera par la suite celui qu'on enleve a cette boucle a la fin de val_comb_vert et on changera n en n+1 (pos 1) et le score en fonction (pos 0)
-            for(int k=0;k<3;++k){
-                val_1comb[j][k]=val_comb_vert[0][j][k];
-            }
-        }
+        mat2 val_1comb;
+        val_1comb=val_comb_vert[0]; //on fait cette affectation pour garder en mémoire les pions deja enleves, on rajoutera par la suite celui qu'on enleve a cette boucle a la fin de val_comb_vert et on changera n en n+1 (pos 1) et le score en fonction (pos 0)
         val_1comb[1][0]=n+1; //de fait, on enleve 1 pion de plus qu'a la boucle while d'avant (voir la fonction place_vert)
         grille.sl[vert_pos_mat[i][0]][vert_pos_mat[i][1]]='v'; //on teste d'enlever un des pions verts
         val_1comb[2+n][0]=vert_pos_mat[i][0]; val_1comb[2+n][1]=vert_pos_mat[i][1]; val_1comb[2+n][2]=i; //on rajoute ses coordonnées à la fin de val_1comb 
@@ -173,24 +163,10 @@ void compte_vert(grille_complete & grille, int *** val_comb_vert, mat_tri & vert
         int j=i+1;
 
         while ((j>1) and (val_comb_vert[j-1][0][0] < val_1comb[0][0])){ //on trie par insertion les meilleures combinaisons de cette boucle
-            for(int k=0;k<4+n;++k){
-                for(int l=0;l<3;++l){
-                    val_comb_vert[j][k][l] = val_comb_vert[j-1][k][l];
-                }
-            }
+            val_comb_vert[j] = val_comb_vert[j-1];
             --j;
         }
-        for(int k=0;k<4+n;++k){
-            for(int l=0;l<3;++l){
-                val_comb_vert[j][k][l]=val_1comb[k][l];
-            }
-        }
-
-        for(int j=0;j<4096;++j){
-            delete[] val_1comb[j];
-        }
-        delete[] val_1comb;
-                
+        val_comb_vert[j]=val_1comb;
     }
     
     int j=val_comb_vert[1][2+n][2]; //on met le pion enleve donnant le plus grand score a la fin de notre liste pour pouvoir ne plus le compter après
@@ -206,11 +182,7 @@ void compte_vert(grille_complete & grille, int *** val_comb_vert, mat_tri & vert
     vert_pos_mat[j]=temp;
 
     if(val_comb_vert[1][0][0]>=val_comb_vert[0][0][0]){ //si la combinaison actuelle est meilleure que celle d'avant, on recommence
-        for(int k=0;k<4+n;++k){
-            for(int l=0;l<3;++l){
-                val_comb_vert[0][k][l]=val_comb_vert[1][k][l];
-            }
-        }
+        val_comb_vert[0]=val_comb_vert[1];
         grille.sl[val_comb_vert[0][2+n][0]][val_comb_vert[0][2+n][1]]='1';
     }
     else{ //sinon, on arrete
@@ -258,21 +230,8 @@ void place_vert(grille_complete & grille){
         --i;
     }
 
-    int *** val_comb_vert;
-    val_comb_vert=new int **[4096];
-    for(i=0;i<4096;++i){
-        val_comb_vert[i]=new int*[4096];
-        for(j=0;j<4096;++j){
-            val_comb_vert[i][j]=new int[3];
-        }
-    }
-    //mat3 val_comb_vert;
-    val_comb_vert[0][0][0]=poi-pen; //on initialise val_comb_vert
-    val_comb_vert[0][0][1]=-2;
-    val_comb_vert[0][0][2]=-2;
-    val_comb_vert[0][1][0]=0;
-    val_comb_vert[0][1][1]=-2;
-    val_comb_vert[0][1][2]=-2;
+    mat3 val_comb_vert;
+    val_comb_vert[0]={poi-pen,-2,-2,0,-2,-2}; //on initialise val_comb_vert
     bool fin=false;
 
     while(fin==false){ //on lance le programme pour trouver la meilleure combinaison de verts parmi ceux posés au début
@@ -281,16 +240,6 @@ void place_vert(grille_complete & grille){
             fin=true;
         }
     }
-    
-    for(int j=0;j<4096;++j){
-        for(int k=0;k<4096;++k){
-            delete[] val_comb_vert[j][k];
-        }
-    }
-    for(int j=0;j<4096;++j){
-        delete[] val_comb_vert[j];
-    }
-    delete[] val_comb_vert;
 
 }
 
