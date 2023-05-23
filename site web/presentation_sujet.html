@@ -147,17 +147,109 @@
             <br>
             <li>Pénalités sur les pions bleus : <em>P<sub>B</sub></em> = 0, car il n’y a pas plus de pions bleus sur des cases négatives (B3) que sur des cases positives (D4).</li>
             <br>
-            <li>Pénalités sur les pions orange : <em>P<sub>O</sub></em> = 5, puisque sur les (<sup>4</sup><sub>2</sub>) = 6 paires de jetons orange, 3 sont placées
-                sur une même colonne (A3-C3, A3-D3, C3-D3) et 2 sur une même diagonale (A3-B4, B4-C3).</li>
+            <li>Pénalités sur les pions orange : <em>P<sub>O</sub></em> = 5, puisque sur les (4 parmi 2) = 6 paires de jetons orange, 3 sont placées sur une même colonne (A3-C3, A3-D3, C3-D3) et 2 sur une même diagonale (A3-B4, B4-C3).</li>
             <br>
             <li>Score du pion rouge : <em>S<sub>R</sub></em> = 8.</li>
             <br>
-            <li></li>
+            <li>Pour rappel, les pions bleus et les pions orange ont toujours un score nul, et il n’y a jamais de pénalité sur les pions noirs ni sur le pion rouge.</li>
             <br>
-            <li></li>
+            <li>Le score total de la solution est : <em>S<sub>J</sub></em> + <em>S<sub>V</sub></em> + <em>S<sub>N</sub></em> + <em>S<sub>R</sub></em> - <em>p</em> × (<em>P<sub>J</sub></em> + <em>P<sub>V</sub></em> + <em>P<sub>B</sub></em> + <em>P<sub>O</sub></em> ) = (13 + 25 + 12 + 8) - 10 × (1 + 1 + 0 + 5) = 62 - 70 = -12.</li>
         </ul>
+        <br>
+        <p>On appelle <em>solution</em> une configuration valide de placement des jetons sur la grille (une couleur par case, et exactement une seule fois la couleur rouge), et <em>solution optimale</em> la meilleure solution possible en termes de score. Il peut y avoir plusieurs solutions optimales, si elles sont de score identique.</p>
+        <br>
+        <p>Trois solutions optimales, de score 76, sont représentées ci-dessous. Outre le pion rouge requis (score 8), elle n’utilise aucun pion jaune, 3 pions verts (score 18), 4 pions noirs (score 50), 6 pions bleus et 2 pions orange. Elles diffèrent uniquement par la permutation de pions oranges et de pions bleus. Ces configurations n’entraı̂nent aucune pénalité.</p>
+        <br>
+        <table id="cote_3">
+            <tbody>
+                <tr>
+                    <td>V</td>
+                    <td>N</td>
+                    <td>V</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>N</td>
+                    <td>B</td>
+                    <td>B</td>
+                    <td>O</td>
+                </tr>
+                <tr>
+                    <td>R</td>
+                    <td>B</td>
+                    <td>B</td>
+                    <td>B</td>
+                </tr>
+                <tr>
+                    <td>O</td>
+                    <td>B</td>
+                    <td>V</td>
+                    <td>N</td>
+                </tr>
+            </tbody>
+        </table>
+        <table id="cote_3">
+            <tbody>
+                <tr>
+                    <td>V</td>
+                    <td>N</td>
+                    <td>V</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>N</td>
+                    <td>B</td>
+                    <td>B</td>
+                    <td>B</td>
+                </tr>
+                <tr>
+                    <td>R</td>
+                    <td>B</td>
+                    <td>B</td>
+                    <td>O</td>
+                </tr>
+                <tr>
+                    <td>O</td>
+                    <td>B</td>
+                    <td>V</td>
+                    <td>N</td>
+                </tr>
+            </tbody>
+        </table>
+        <table id="cote_3">
+            <tbody>
+                <tr>
+                    <td>V</td>
+                    <td>N</td>
+                    <td>V</td>
+                    <td>N</td>
+                </tr>
+                <tr>
+                    <td>N</td>
+                    <td>B</td>
+                    <td>B</td>
+                    <td>B</td>
+                </tr>
+                <tr>
+                    <td>R</td>
+                    <td>B</td>
+                    <td>O</td>
+                    <td>B</td>
+                </tr>
+                <tr>
+                    <td>O</td>
+                    <td>B</td>
+                    <td>V</td>
+                    <td>N</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-
-
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <a href="index.html">Retour à l'index</a>
 </body>
