@@ -1,0 +1,29 @@
+@charset "UTF-8";
+#centre{
+    margin: auto;
+}
+
+#cote_2{
+    display: inline;
+    margin: 22.5%;
+}
+
+#cote_3{
+    display: inline;
+    margin: 15%;
+}
+
+ul>li{
+    list-style-type: '− ';
+}
+
+table{
+    border-collapse: collapse;
+}
+
+td{
+    border: solid 1px black;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+}
