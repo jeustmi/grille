@@ -31,17 +31,3 @@ int main(){
         std::cout<<std::endl;
     }
 }
-
-        val_1comb=new int*[4096];
-        for(int j=0;j<4096;++j){
-            val_1comb[j]=new int[3];
-        }
-
-    int *** val_comb_vert;
-    val_comb_vert=new int **[4096];
-    for(i=0;i<4096;++i){
-        val_comb_vert[i]=new int*[4096];
-        for(j=0;j<4096;++j){
-            val_comb_vert[i][j]=new int[3];
-        }
-    }
