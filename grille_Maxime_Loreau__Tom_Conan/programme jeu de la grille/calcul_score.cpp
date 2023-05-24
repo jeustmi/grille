@@ -133,7 +133,7 @@ void calcul_score(grille_complete &grille, int &score){
             }
         }
     }
-        std::cout<<pen_tot<<" "<<poi_tot<<std::endl; //check des points et pénalités pour mieux repérer les erreurs
+    //std::cout<<pen_tot<<" "<<poi_tot<<std::endl; //check des points et pénalités pour mieux repérer les erreurs
     poi_tot=poi_tot-pen_tot; //calcul du score final
     grille.sl=save_grille_sl; //réattribution de la grille solution initiale
         std::cout<<poi_tot<<std::endl;
