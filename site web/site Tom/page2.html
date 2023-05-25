@@ -95,7 +95,7 @@
 			<p>
 				On regarde les cases avec le meilleur score.
 				<br>
-				Tant que celui-ci est suppérieur à 2 ou que n noirs ont étés placés (n étant la taimme de la grille), on regarde alors s'il est plus profitable de mettre un pion noir ou un vert.
+				Tant que celui-ci est suppérieur à 2 ou que n noirs ont étés placés (n étant la taille de la grille), on regarde alors s'il est plus profitable de mettre un pion noir ou un vert.
 				<br>
 				Si on place un noir, on incrémente un compteur et on recommence.
 			</p>
@@ -128,8 +128,8 @@
 				<iframe src="prog/place_bleu.txt" width="70%"></iframe>
 			</div>
 			<p> 
-				Tant que l'on peut placer des bleus on recherche la plus petite case positive et la plus petite case. Puis, si de placer les bleus enlève plus de points négatifs que positif en prenant en compte les pénaliser alors on place les pions bleus
-
+				Tant que la case avec le plus petit score positif a un score inférieur à la pénalité ou que la case avec le plus petit score a un score négatif, on place des pions bleus sur ces deux cases.
+			</p>
 			<h3 id="ppj">place pion jaune :</h3>
 			<div class="prog" >
 				<iframe src="prog/place_jaune.txt" width="70%"></iframe>
