@@ -400,7 +400,7 @@ void place_jaune(grille_complete & grille){
             pen=0;
             if(grille.sl[i][j]=='J'){
                 jeton_j(grille,poi,pen,i,j);
-                if(pen>0 and poi<grille.p){
+                if(pen>0 and poi<1){
                     grille.sl[i][j]='B';
                 }
             }

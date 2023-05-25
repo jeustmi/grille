@@ -43,3 +43,9 @@ td{
     display: inline;
     margin: 13%;
 }
+.prog{
+    position: relative; 
+    overflow: hidden; 
+    padding-top: 2%; 
+
+}

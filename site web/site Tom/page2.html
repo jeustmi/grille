@@ -19,11 +19,6 @@
 		<div class="corp">
 			<h1>Les algorithmes</h1>
 			<h2>Sommaire:</h2>
-			<a href="#lectureEcriture">	Lecture et ecriture fichier</a>
-			<br>
-			<a href="#affiche_mat">affichage des matrice</a>
-			<br>
-			<a href="#compte_jeton"> compte jeton</a>
 			<br>
 			<a href="#calcul_score">calcul score</a>
 			<br>
@@ -40,18 +35,8 @@
 			<a href="#ppb">place pion bleu</a>
 			<br>
 			<a href="#ppj">place pion jaune</a>
-			<br>
-			<h3 id="lectureEcriture">Lecture et ecriture fichier :</h3>
-			pas necessaire
-			image algo et explication
-			<h3 id="affiche_mat">affichage des matrice :</h3>
-			pas necessaire
-			image algo et explication
-			<h3 id="compte_jeton"> compte jeton :</h3>
-			pas necessaire
-			image algo et explication
+			
 			<h3 id="calcul_score">calcul score :</h3>
-			image algo et explication
 			<p>
 				Pour commencer, le programme calcul_score compte les pions bleus et regarde leur place.
 				<br>
@@ -87,19 +72,26 @@
 				<br><br>
 			</p>
 			<h3 id="tab_tri">tableau trié:</h3>
-			image algo et explication
+			<div class="prog" >
+				<iframe src="prog/tab_tri.txt" width="70%"></iframe>
+			</div>
+			
 			<p>
 				Avant de placer les pions, on fait un parcours de la grille pour garder en mémoire le score de chaque case avec ses coordonnées.
 				<br>
 				Pour une efficacité maximale, on trie ces cases dans l'ordre des points.
 			</p>
 			<h3 id="ppr">place pion rouge :</h3>
-			image algo et explication
+			<div class="prog" >
+				<iframe src="prog/place_rouge.txt" width="70%"></iframe>
+			</div>
 			<p>
 				On regarde simplement la case avec le score le plus bas (au début du tableau trié) pour y poser le pion rouge.
 			</p>
 			<h3 id="ppn">place pion noir :</h3>
-			image algo et explication
+			<div class="prog" >
+				<iframe src="prog/place_noir.txt" width="70%"></iframe>
+			</div>
 			<p>
 				On regarde les cases avec le meilleur score.
 				<br>
@@ -108,7 +100,9 @@
 				Si on place un noir, on incrémente un compteur et on recommence.
 			</p>
 			<h3 id="ppv">place pion vert :</h3>
-			image algo et explication
+			<div class="prog" >
+				<iframe src="prog/place_vert.txt" width="70%"></iframe>
+			</div>
 			<p>
 				Pour commencer, on regarde le score que donnerait chaque case avec un pion vert dessus (sans pénalités) et on stocke ces informations dans un tableau.
 				<br>
@@ -121,21 +115,29 @@
 				S'il y a eu un remplacement, alors on continue d'enlever des pions, et sinon, on arrête le placement car il est le meilleur possible.
 			</p>
 			<h3 id="ppo">place pion orange :</h3>
-			image algo et explication
+			<div class="prog" >
+				<iframe src="prog/place_orange.txt" width="70%"></iframe>
+			</div>
 			<p>
 				Tout d'abord, on place un pion orange sur chaque case négative restante.
 				<br>
 				Ensuite, grâce au principe de programmation par contrainte, on commence une boucle qui enlève à chaque itération le pion qui entraîne le plus de pénalités jusqu'à n'avoir plus aucune pénalité.
 			</p>
 			<h3 id="ppb">place pion bleu :</h3>
-			image algo et explication
-			<p>
+			<div class="prog" >
+				<iframe src="prog/place_bleu.txt" width="70%"></iframe>
+			</div>
+			<p> 
+				Tant que l'on peut placer des bleus on recherche la plus petite case positive et la plus petite case. Puis, si de placer les bleus enlève plus de points négatifs que positif en prenant en compte les pénaliser alors on place les pions bleus
 
-			</p>
 			<h3 id="ppj">place pion jaune :</h3>
-			image algo et explication
+			<div class="prog" >
+				<iframe src="prog/place_jaune.txt" width="70%"></iframe>
+			</div>
 			<p>
-
+				On commence par mettre des jaune sur toute les case avec de valeur supérieur au fait de ce prendre une penalité puis on renplace le bleu par des jaune sur les case négative ou nul qui engendre une pénalité 
+				<br>
+				Pour finir on place de bleu sur les case restante
 			</p>
 	</body>
 </html>

@@ -1,0 +1,37 @@
+void place_bleu(grille_complete & grille,int & dn){
+    int vb,i1,j1,i2,j2,k,rien;
+    bool b_placer = true;
+    
+    dn=trouve_dn(grille,dn);
+    k=recherche_min_positif(grille);
+    
+    while (b_placer){
+        dn=trouve_dn(grille,dn);
+        k=recherche_min_positif(grille);
+        i1=grille.vt[dn][1];
+        j1=grille.vt[dn][2];
+        i2=grille.vt[k][1];
+        j2=grille.vt[k][2];
+        if(grille.vt[k][0]>0 and grille.vt[dn][0]>0){
+            vb=grille.vt[k][0]-grille.vt[dn][0]-grille.p;
+        }
+        else{
+            vb=grille.vt[k][0]-grille.vt[dn][0];
+        }
+        if(dn==k){
+            b_placer = false;
+        }
+        else if(grille.sl[i1][j1]!='1' or grille.sl[i2][j2]!='1'){
+            b_placer = false;
+        }
+        else{
+            if(vb>=0){
+                if(grille.sl[i1][j1]=='1' and grille.sl[i2][j2]=='1'){
+                    grille.sl[i1][j1]='B';
+                    grille.sl[i2][j2]='B';
+                }
+            }
+        }
+    }
+
+}

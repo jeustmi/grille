@@ -1,0 +1,48 @@
+void place_orange(grille_complete & grille,int & dn){ //place la meilleure position des oranges, dans certains cas
+    mat_tri or_mat;
+    tab_tri or_tab;
+    int or_mat_n,a,k,i,pen;
+    dn=trouve_dn(grille,dn);
+    a=recherche_min_positif(grille);
+    a=a-dn;
+    //std::cout<<dn<<" "<<a<<std::endl;
+    or_mat_n=0;
+    i=dn;
+
+    while(i<dn+a){
+        if(grille.sl[grille.vt[i][1]][grille.vt[i][2]]=='1'){
+            grille.sl[grille.vt[i][1]][grille.vt[i][2]]='O';
+            or_mat[or_mat_n][1]=grille.vt[i][1];
+            or_mat[or_mat_n][2]=grille.vt[i][2];
+            ++or_mat_n;
+        }
+        ++i;
+    }
+
+    bool fin=false;
+    or_mat[or_mat_n-1][0]=42;
+
+    while(fin==false){
+        if(or_mat[or_mat_n-1][0]!=0){
+            grille.sl[or_mat[or_mat_n-1][1]][or_mat[or_mat_n-1][2]]='1';
+            --or_mat_n;
+            for(int i=0;i<or_mat_n;++i){
+                pen=0;
+                jeton_o(grille,pen,or_mat[i][1],or_mat[i][2]);
+                or_tab[0]=pen;
+                or_tab[1]=or_mat[i][1];
+                or_tab[2]=or_mat[i][2];
+                k=i;
+                while ((k>0) and (or_mat[k-1][0] > or_tab[0])){
+                    or_mat[k] = or_mat[k-1];
+                    --k;
+                }
+                or_mat[k] = or_tab;   
+            }
+        }
+        else{
+            fin=true;
+        }
+    }
+
+}
