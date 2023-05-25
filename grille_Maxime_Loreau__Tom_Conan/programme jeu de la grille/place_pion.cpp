@@ -23,6 +23,23 @@ int recherche_min_positif_mat(mat_tri mat, int t){
     return k-1;
 }
 
+/*int recherche(grille_complete & grille){
+    int k,i,i1,j1;
+    k=0;
+    i=0;
+    while(i<grille.t and k==0){
+        if(grille.vt[i][0]>0){
+            i1=grille.vt[i][1];
+            j1=grille.vt[i][2];
+            if(grille.sl[i1][j1]=='1'){
+                k=i;
+            }
+        }
+        ++i;
+    }
+    return k;
+}*/
+
 int recherche_min_positif(grille_complete & grille){
     int k=0;
     bool trouver=false;
@@ -344,41 +361,25 @@ void place_orange(grille_complete & grille,int & dn){ //place la meilleure posit
 }
 
 void place_bleu(grille_complete & grille,int & dn){
-    int vb,i1,j1,i2,j2,k,rien;
-    bool b_placer = true;
-    
-    dn=trouve_dn(grille,dn);
+    int k,i,j,i1,j1,i2,j2;
     k=recherche_min_positif(grille);
-    
-    while (b_placer){
-        dn=trouve_dn(grille,dn);
-        k=recherche_min_positif(grille);
+    dn=trouve_dn(grille,dn);
+    i=0;
+    while(grille.vt[k][0]<grille.p and i<grille.t and grille.vt[dn][0]<0){
         i1=grille.vt[dn][1];
         j1=grille.vt[dn][2];
         i2=grille.vt[k][1];
         j2=grille.vt[k][2];
-        if(grille.vt[k][0]>0 and grille.vt[dn][0]>0){
-            vb=grille.vt[k][0]-grille.vt[dn][0]-grille.p;
-        }
-        else{
-            vb=grille.vt[k][0]-grille.vt[dn][0];
-        }
-        if(dn==k){
-            b_placer = false;
-        }
-        else if(grille.sl[i1][j1]!='1' or grille.sl[i2][j2]!='1'){
-            b_placer = false;
-        }
-        else{
-            if(vb>=0){
-                if(grille.sl[i1][j1]=='1' and grille.sl[i2][j2]=='1'){
-                    grille.sl[i1][j1]='B';
-                    grille.sl[i2][j2]='B';
-                }
+        if(grille.vt[k][0]<grille.p){
+            if(grille.sl[i1][j1]=='1' and grille.sl[i2][j2]=='1'){
+                grille.sl[i1][j1]='B';
+                grille.sl[i2][j2]='B';
             }
         }
+        dn=trouve_dn(grille,dn);
+        k=recherche_min_positif(grille);
+        ++i;
     }
-
 }
 
 void place_jaune(grille_complete & grille){
@@ -415,31 +416,4 @@ void place_jaune(grille_complete & grille){
         }
     }
 
-}
-
-void place_jaune1(grille_complete & grille){ //ancien place_jaune, moins ouf que le nouveau
-    int i,j;
-
-    for(int h=0; h<grille.t ; ++h){
-        i=grille.vt[h][1];
-        j=grille.vt[h][2];
-        if(grille.sl[i][j]=='1'){
-            grille.sl[i][j]='J';
-        }
-    }
-
-    int poi,pen;
-
-    for(int i=0;i<grille.n;++i){
-        for(int j=0;j<grille.n;j++){
-            poi=0;
-            pen=0;
-            if(grille.sl[i][j]=='J'){
-                jeton_j(grille,poi,pen,i,j);
-                if(pen>0 and poi<grille.p){
-                    grille.sl[i][j]='B';
-                }
-            }
-        }
-    }
 }

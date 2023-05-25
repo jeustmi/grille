@@ -1,5 +1,5 @@
 Avant toute chose, téléchargez les grilles à tester dans le dossier fichiers_grille/grilles/.
-Les grilles de compétition et hors compétition sont normalement déjà présentes dans le dossier.
+Les grilles de compétition et hors compétition sont normalement déjà présentes dans le dossier, avec les solutions des grilles de compétition.
 
 Pour utiliser le programme, déplacez-vous dans le dossier "programme jeu de la grille" avec une console et compilez en utilisant la commande présente en commentaire au début de main.cpp ou ci-dessous :
 ( g++ main_grille.cpp lecture_fichier.cpp aff_mat.cpp compte_jetons.cpp calcul_score.cpp struct.cpp ecriture_fichier.cpp tab_tri.cpp place_pion.cpp -o programme_grille.out )
