@@ -24,13 +24,23 @@ void jeton_v(grille_complete & grille, int & poi_tot, int & pen_tot, int i, int 
     compteur=1; //compte le nombre de tours de la double boucle et sert à savoir à quelle boucle on est dans un coin et donc quand il ne faut pas compter les points
     for(int k=i-1;k<i+2;k++){
         for(int l=j-1;l<j+2;l++){
-            if(0<=k and k<grille.n and 0<=l and l<grille.n and compteur!=1 and compteur!=3 and compteur!=7 and compteur!=9){ // (0<=k and k<grille.n and 0<=l and l<grille.n and !(k==i and l==j)) : vérifie qu'il n'y a pas de core dumped, (a!=1 and a!=3 and a!=7 and a!=9) : vérifie qu'on est pas dans un coin
-                poi_tot+=grille.nb[k][l]; //points des cases adjacentes mais pas en diagonale du jeton
+            if(0<=k and k<grille.n and 0<=l and l<grille.n){ // (0<=k and k<grille.n and 0<=l and l<grille.n) : vérifie qu'il n'y a pas de core dumped
+                if(compteur!=1 and compteur!=3 and compteur!=7 and compteur!=9){ // (compteur!=1 and compteur!=3 and compteur!=7 and compteur!=9) : vérifie qu'on ne regarde pas le score des cases en diagonale
+                    poi_tot+=grille.nb[k][l]; //points des cases adjacentes mais pas en diagonale du jeton
+                }
+                if(!(k==i and l==j) and grille.sl[k][l]=='V'){ // !(k==i and l==j) :  vérifie qu'on ne compte pas la case sur lequel est le jeton, sinon on aurait une pénalité d'office
+                    pen_tot+=grille.p; //pénalité si un jeton vert est adjacent
+                }
             }
             ++compteur;
+            if(0<=k and k<grille.n and 0<=l and l<grille.n){ // (0<=k and k<grille.n and 0<=l and l<grille.n and !(k==i and l==j)) : vérifie qu'il n'y a pas de core dumped, 
+                if(grille.sl[k][l]=='V'){
+                    
+                }
+            }
         }
     }
-    for(int k=i-1;k<i+2;k++){
+    /*for(int k=i-1;k<i+2;k++){
         for(int l=j-1;l<j+2;l++){
             if(0<=k and k<grille.n and 0<=l and l<grille.n and !(k==i and l==j)){ // (0<=k and k<grille.n and 0<=l and l<grille.n and !(k==i and l==j)) : vérifie qu'il n'y a pas de core dumped, !(k==i and l==j) :  vérifie qu'on ne compte pas la case sur lequel est le jeton, sinon on aurait une pénalité d'office
                 if(grille.sl[k][l]=='V'){
@@ -38,7 +48,7 @@ void jeton_v(grille_complete & grille, int & poi_tot, int & pen_tot, int i, int 
                 }
             }
         }
-    }
+    }*/
 }
 
 void jeton_n(grille_complete grille, int &poi_tot, int i, int j){ //poi + a besoin de n
