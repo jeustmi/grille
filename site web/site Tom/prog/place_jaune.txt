@@ -1,0 +1,35 @@
+void place_jaune(grille_complete & grille){
+    int i,j;
+
+    for(int h=0; h<grille.t ; ++h){
+        i=grille.vt[h][1];
+        j=grille.vt[h][2];
+        if(grille.sl[i][j]=='1' and grille.nb[i][j]>-grille.p){
+            grille.sl[i][j]='J';
+        }
+    }
+
+    int poi,pen;
+
+    for(int i=0;i<grille.n;++i){
+        for(int j=0;j<grille.n;j++){
+            poi=0;
+            pen=0;
+            if(grille.sl[i][j]=='J'){
+                jeton_j(grille,poi,pen,i,j);
+                if(pen>0 and poi<1){
+                    grille.sl[i][j]='B';
+                }
+            }
+        }
+    }
+
+    for(int h=0; h<grille.t ; ++h){
+        i=grille.vt[h][1];
+        j=grille.vt[h][2];
+        if(grille.sl[i][j]=='1'){
+            grille.sl[i][j]='B';
+        }
+    }
+
+}
