@@ -5,7 +5,7 @@ using mat_sl=std::array<tab_sl,128>;
 using tab_tri=std::array<int,3>;
 using mat_tri=std::array<tab_tri,1024>;
 
-struct grille_complete{ //on fait une structure contenant toutes les informations pour faciliter l'accès aux données (même si l'on n'a que ramement besoinde tous)
+struct grille_complete{ //on fait une structure contenant toutes les informations pour faciliter l'accès aux données (même si l'on n'a que ramement besoin de tous)
     mat_nb nb; //grille de nombres
     mat_sl sl; //grille de solution
     mat_tri vt; //tableau contenant les valeurs de la matrice nb, triées

@@ -29,16 +29,16 @@ td{
     font-size: 150%;
 }
 
-#centre{
+.centre{
     margin: auto;
 }
 
-#cote_2{
+.cote_2{
     display: inline;
     margin: 22.5%;
 }
 
-#cote_3{
+.cote_3{
     display: inline;
     margin: 13%;
 }
@@ -64,4 +64,16 @@ iframe{
 
 .struct{
     height: 235px;
+}
+
+.im_groupe{
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.txt_groupe{
+    display: inline;
+    font-weight: bold;
+    margin-left: 20%;
+    margin-right: 23%;
 }
