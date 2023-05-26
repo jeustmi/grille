@@ -77,3 +77,24 @@ iframe{
     margin-left: 20%;
     margin-right: 23%;
 }
+.scores{
+    height: 400px;
+    width: 70%;
+    margin-left : auto;
+    margin-right : auto;
+}
+.iscores{
+    background-color: #77b5fe;
+    height: 100%;
+    width: 100%;
+
+
+
+}
+.ligne2{
+    height: 100%;
+}
+.colonne2{
+    background-color: #77b5fe;
+    width: 50%;
+}
