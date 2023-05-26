@@ -1,143 +1,175 @@
 <!DOCTYPE html>
 <html lan="fr">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="midth=device-width,initial-scale=1.0">
-		<title>Projet P5 "La grille"</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
-		<link rel="shortcut icon" href="image/logo_univ.jpg" type="image/x-icon">
-	</head>
-	<body>
-		<table id="menu">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="midth=device-width,initial-scale=1.0">
+	<title>Projet P5 "La grille"</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="shortcut icon" href="image/logo_univ.jpg" type="image/x-icon">
+</head>
 
-			<tr class="ligne">
-				<td class="colonne"><a href="page1.html" id="lien page1">Le projet</a></td>
-				<td class="colonne"><a href="page2.html"  id="lien page2">les algorithmes</a></td>
-				<td class="colonne"><a href="page3.html" id="lien page3">les solutions et scores obtenus</a></td>
-			</tr>
-		</table>
-		<div class="corp">
-			<h1>Les algorithmes</h1>
-			<h2>Sommaire:</h2>
+<body>
+	<table id="menu">
+		<tr class="ligne">
+			<td class="colonne"><a href="page1.html" id="lien page1">Le Projet</a></td>
+			<td class="colonne"><a href="page2.html"  id="lien page2">Les Algorithmes</a></td>
+			<td class="colonne"><a href="page3.html" id="lien page3">Les Solutions et Scores Obtenus</a></td>
+		</tr>
+	</table>
+	<div class="corp">
+		<h1>Les Algorithmes</h1>
+		<h2>Sommaire:</h2>
+		<a href="#struct">Structure</a>
+		<br>
+		<a href="#calcul_score">Calcul Score</a>
+		<br>
+		<a href="#tab_tri">Tableau Trié</a>
+		<br>
+		<a href="#ppr">Place Pion Rouge</a>
+		<br>
+		<a href="#ppn">Place Pion Noir</a>
+		<br>
+		<a href="#ppv">Place Pion Vert</a>
+		<br>
+		<a href="#ppo">Place Pion Orange</a>
+		<br>
+		<a href="#ppb">Place Pion Bleu</a>
+		<br>
+		<a href="#ppj">Place Pion Jaune</a>
+		<br><br>
+
+		<h2 id="struct">Structure</h2>
+		<div class="prog" >
+			<iframe src="prog/struct.txt" class="struct"></iframe>
+		</div>
+		<p>
+			Pour utiliser efficacement toutes les données, on les stocke dans la structure grille_complete.
+			<br><br>
+			Premièrement, on déclare tous les types de tableaux, comme mat_nb qui stocke la grille de normbres donnée ou mat_sl qui stocke la solution trouvée.
 			<br>
-			<a href="#calcul_score">calcul score</a>
+			Ensuite, on déclare le type mat_tri qui permet de stocker dans l'ordre croissant le score des cases avec leur coordonnées.
 			<br>
-			<a href="#tab_tri">tableau trié</a>
+			Enfin, on utilise quelques int comme la taille de la grille ou la pénalité, ce qui nous sera bien utile dans la suite du programme.
+		</p>
+		<br>
+
+		<h2 id="calcul_score">Calcul Score :</h2>
+		<div class="prog" >
+			<iframe src="prog/calcul_score.txt"></iframe>
+		</div>
+		<p>
+			Pour commencer, le programme calcul_score compte les pions bleus et regarde leur place.
 			<br>
-			<a href="#ppr">place pion rouge</a>
+			S'il y a plus de bleus sur les négatifs que les positifs, le programme garde en mémoire les pénalités engendrées dans la variable pen_tot.
+			<br><br>
+			Ensuite, une double boucle commence et regarde chaque pion individuellement.
+			<br><br>
+			Si le pion est rouge, l'opposé du score de la case est gardé en mémoire dans la variable poi_tot.
+			<br><br>
+			S'il est noir, on regarde le nombre de pions noirs (stocké au préalable par un autre fonction) pour voir s'il dépasse la taille de la grille.
 			<br>
-			<a href="#ppn">place pion noir</a>
+			Si c'est le cas, on compte le score de la case moins 1 et on l'enregistre.
 			<br>
-			<a href="#ppv">place pion vert</a>
+			Sinon, on compte le score de la case moins 1, on le double, puis on l'enregistre.
+			<br><br>
+			Si le pion est jaune, on enregistre d'abord le score de la case.
 			<br>
-			<a href="#ppo">place pion orange</a>
+			Ensuite, on lance une boucle regardant chaque case autour du pion pour voir si l'une d'entre elles est recouverte par un pion jaune.
 			<br>
-			<a href="#ppb">place pion bleu</a>
+			Si ce n'est pas le cas, on rajoute une pénalité.
+			<br><br>
+			Si le pion est vert, on lance une boucle pour compter le score des cases adjacentes et vérifier les jetons proches.
 			<br>
-			<a href="#ppj">place pion jaune</a>
-			
-			<h3 id="calcul_score">calcul score :</h3>
-			<p>
-				Pour commencer, le programme calcul_score compte les pions bleus et regarde leur place.
-				<br>
-				S'il y a plus de bleus sur les négatifs que les positifs, le programme garde en mémoire les pénalités engendrées dans la variable pen_tot.
-				<br><br>
-				Ensuite, une double boucle commence et regarde chaque pion individuellement.
-				<br><br>
-				Si le pion est rouge, l'opposé du score de la case est gardé en mémoire dans la variable poi_tot.
-				<br><br>
-				S'il est noir, on regarde le nombre de pions noirs (stocké au préalable par un autre fonction) pour voir s'il dépasse la taille de la grille.
-				<br>
-				Si c'est le cas, on compte le score de la case moins 1 et on l'enregistre.
-				<br>
-				Sinon, on compte le score de la case moins 1, on le double, puis on l'enregistre.
-				<br><br>
-				Si le pion est jaune, on enregistre d'abord le score de la case.
-				<br>
-				Ensuite, on lance une boucle regardant chaque case autour du pion pour voir si l'une d'entre elles est recouverte par un pion jaune.
-				<br>
-				Si ce n'est pas le cas, on rajoute une pénalité.
-				<br><br>
-				Si le pion est vert, on lance une boucle pour compter le score des cases adjacentes et vérifier les jetons proches.
-				<br>
-				Pour chaque jeton vert, une pénalité est ajoutée.
-				<br>
-				A la fin de la boucle, le jeton est temporairement remplacé par le char 'v' au lieu de 'V' pour ne pas compter ce jeton lors des prochains tests de verts : puisqu'on compte les couples de jetons verts, il faut trouver un moyen pour ne pas les compter deux fois.
-				<br><br>
-				Enfin, s'il est orange, on regarde les diagonales et les directions cardinales pour trouver d'autres jetons oranges et compter un pénalité pour chaque.
-				<br>
-				Ensuite, comme pour les verts, on remplace temporairement le char 'O' par le char 'o'.
-				<br><br>
-				Une fois tous les pions pris en compte, on soustrait les pénalités aux points totaux pour avoir le score final.
-				<br><br>
-			</p>
-			<h3 id="tab_tri">tableau trié:</h3>
-			<div class="prog" >
-				<iframe src="prog/tab_tri.txt" width="70%"></iframe>
-			</div>
-			
-			<p>
-				Avant de placer les pions, on fait un parcours de la grille pour garder en mémoire le score de chaque case avec ses coordonnées.
-				<br>
-				Pour une efficacité maximale, on trie ces cases dans l'ordre des points.
-			</p>
-			<h3 id="ppr">place pion rouge :</h3>
-			<div class="prog" >
-				<iframe src="prog/place_rouge.txt" width="70%"></iframe>
-			</div>
-			<p>
-				On regarde simplement la case avec le score le plus bas (au début du tableau trié) pour y poser le pion rouge.
-			</p>
-			<h3 id="ppn">place pion noir :</h3>
-			<div class="prog" >
-				<iframe src="prog/place_noir.txt" width="70%"></iframe>
-			</div>
-			<p>
-				On regarde les cases avec le meilleur score.
-				<br>
-				Tant que celui-ci est suppérieur à 2 ou que n noirs ont étés placés (n étant la taille de la grille), on regarde alors s'il est plus profitable de mettre un pion noir ou un vert.
-				<br>
-				Si on place un noir, on incrémente un compteur et on recommence.
-			</p>
-			<h3 id="ppv">place pion vert :</h3>
-			<div class="prog" >
-				<iframe src="prog/place_vert.txt" width="70%"></iframe>
-			</div>
-			<p>
-				Pour commencer, on regarde le score que donnerait chaque case avec un pion vert dessus (sans pénalités) et on stocke ces informations dans un tableau.
-				<br>
-				Ensuite, on lance une boucle qui va, à chaque fois, enlever temporairement un pion vert du plateau pour tester les points que cette combinaison donne.
-				<br>
-				Une fois la combinaison testée, on va garder celle-ci sous forme d'un tableau (contenant le nombre de points, le nombre de pions enlevés et les coordonnées de chaque pion enlevé) que l'on place dans une matrice qui trie en fonction des scores, en sachant qu'en première position de celle-ci, il y a la combinaison précédente.
-				<br>
-				Après avoir testé chaque pion, on compare le score du premier élément de la matrice (meilleure combinaison de n pions enlevés) et le score du deuxième (meilleure combinaison de n+1 pions enlevés), en remplaçant le premier par le plus grand des deux.
-				<br>
-				S'il y a eu un remplacement, alors on continue d'enlever des pions, et sinon, on arrête le placement car il est le meilleur possible.
-			</p>
-			<h3 id="ppo">place pion orange :</h3>
-			<div class="prog" >
-				<iframe src="prog/place_orange.txt" width="70%"></iframe>
-			</div>
-			<p>
-				Tout d'abord, on place un pion orange sur chaque case négative restante.
-				<br>
-				Ensuite, grâce au principe de programmation par contrainte, on commence une boucle qui enlève à chaque itération le pion qui entraîne le plus de pénalités jusqu'à n'avoir plus aucune pénalité.
-			</p>
-			<h3 id="ppb">place pion bleu :</h3>
-			<div class="prog" >
-				<iframe src="prog/place_bleu.txt" width="70%"></iframe>
-			</div>
-			<p> 
-				Tant que la case avec le plus petit score positif a un score inférieur à la pénalité ou que la case avec le plus petit score a un score négatif, on place des pions bleus sur ces deux cases.
-			</p>
-			<h3 id="ppj">place pion jaune :</h3>
-			<div class="prog" >
-				<iframe src="prog/place_jaune.txt" width="70%"></iframe>
-			</div>
-			<p>
-				On commence par mettre des jaune sur toute les case avec de valeur supérieur au fait de ce prendre une penalité puis on renplace le bleu par des jaune sur les case négative ou nul qui engendre une pénalité 
-				<br>
-				Pour finir on place de bleu sur les case restante
-			</p>
-	</body>
+			Pour chaque jeton vert, une pénalité est ajoutée.
+			<br>
+			A la fin de la boucle, le jeton est temporairement remplacé par le char 'v' au lieu de 'V' pour ne pas compter ce jeton lors des prochains tests de verts : puisqu'on compte les couples de jetons verts, il faut trouver un moyen pour ne pas les compter deux fois.
+			<br><br>
+			Enfin, s'il est orange, on regarde les diagonales et les directions cardinales pour trouver d'autres jetons oranges et compter un pénalité pour chaque.
+			<br>
+			Ensuite, comme pour les verts, on remplace temporairement le char 'O' par le char 'o'.
+			<br><br>
+			Une fois tous les pions pris en compte, on soustrait les pénalités aux points totaux pour avoir le score final.
+		</p>
+		<br>
+
+		<h2 id="tab_tri">Tableau Trié:</h2>
+		<div class="prog" >
+			<iframe src="prog/tab_tri.txt"></iframe>
+		</div>
+		<p>
+			Avant de placer les pions, on fait un parcours de la grille pour garder en mémoire le score de chaque case avec ses coordonnées.
+			<br>
+			Pour une efficacité maximale, on trie ces cases dans l'ordre des points.
+		</p>
+		<br>
+
+		<h2 id="ppr">Place Pion Rouge :</h2>
+		<div class="prog" >
+			<iframe src="prog/place_rouge.txt" class="place_rouge"></iframe>
+		</div>
+		<p>
+			On regarde simplement la case avec le score le plus bas (au début du tableau trié) pour y poser le pion rouge.
+		</p>
+		<br>
+		<h2 id="ppn">Place Pion Noir :</h2>
+		<div class="prog" >
+			<iframe src="prog/place_noir.txt"></iframe>
+		</div>
+		<p>
+			On regarde les cases avec le meilleur score.
+			<br>
+			Tant que celui-ci est suppérieur à 2 ou que n noirs ont étés placés (n étant la taille de la grille), on regarde alors s'il est plus profitable de mettre un pion noir ou un vert.
+			<br>
+			Si on place un noir, on incrémente un compteur et on recommence.
+		</p>
+		<br>
+
+		<h2 id="ppv">Place Pion Vert :</h2>
+		<div class="prog" >
+			<iframe src="prog/place_vert.txt"></iframe>
+		</div>
+		<p>
+			Pour commencer, on regarde le score que donnerait chaque case avec un pion vert dessus (sans pénalités) et on stocke ces informations dans un tableau.
+			<br>
+			Ensuite, on lance une boucle qui va, à chaque fois, enlever temporairement un pion vert du plateau pour tester les points que cette combinaison donne.
+			<br><br>
+			Une fois la combinaison testée, on va garder celle-ci sous forme d'un tableau (contenant le nombre de points, le nombre de pions enlevés et les coordonnées de chaque pion enlevé) que l'on place dans une matrice qui trie en fonction des scores, en sachant qu'en première position de celle-ci, il y a la combinaison précédente.
+			<br>
+			Après avoir testé chaque pion, on compare le score du premier élément de la matrice (meilleure combinaison de n pions enlevés) et le score du deuxième (meilleure combinaison de n+1 pions enlevés), en remplaçant le premier par le plus grand des deux.
+			<br>
+			S'il y a eu un remplacement, alors on continue d'enlever des pions, et sinon, on arrête le placement car il est le meilleur possible.
+		</p>
+		<br>
+
+		<h2 id="ppo">Place Pion Orange :</h2>
+		<div class="prog" >
+			<iframe src="prog/place_orange.txt"></iframe>
+		</div>
+		<p>
+			Tout d'abord, on place un pion orange sur chaque case négative restante.
+			<br>
+			Ensuite, grâce au principe de programmation par contrainte, on commence une boucle qui enlève à chaque itération le pion qui entraîne le plus de pénalités jusqu'à n'avoir plus aucune pénalité.
+		</p>
+		<br>
+
+		<h2 id="ppb">Place Pion Bleu :</h2>
+		<div class="prog" >
+			<iframe src="prog/place_bleu.txt"></iframe>
+		</div>
+		<p> 
+			Tant que la case avec le plus petit score positif a un score inférieur à la pénalité ou que la case avec le plus petit score a un score négatif, on place des pions bleus sur ces deux cases.
+		</p>
+		<br>
+
+		<h2 id="ppj">Place Pion Jaune :</h2>
+		<div class="prog" >
+			<iframe src="prog/place_jaune.txt"></iframe>
+		</div>
+		<p>
+			On commence par mettre des jaune sur toute les case avec de valeur supérieur au fait de ce prendre une penalité puis on renplace le bleu par des jaune sur les case négative ou nul qui engendre une pénalité 
+			<br>
+			Pour finir on place de bleu sur les case restante
+		</p>
+</body>
+
 </html>

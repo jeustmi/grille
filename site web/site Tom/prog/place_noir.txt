@@ -1,7 +1,7 @@
 void place_noir(grille_complete & grille,int & dp){
     mat_tri vert_mat;
     tab_tri vert_tab;
-    int vn=0,poi_v,cette_variable_est_utilisee_dans_jeton_v_mais_en_fait_on_sen_sert_pas_apres_du_coup_je_lappelle_comme_ca;
+    int vn=0,poi_v,pen_v;
     int nn=0; //nombre de noirs places
     int poi_tot,pen_tot,i,j;
     bool n_placer = true; //est vrai tant que tout les noirs ne sont pas places correctement
@@ -26,7 +26,7 @@ void place_noir(grille_complete & grille,int & dp){
                     grille.sl[i][j]='V';
                 }
                 poi_v=0;
-                jeton_v(grille,poi_v,cette_variable_est_utilisee_dans_jeton_v_mais_en_fait_on_sen_sert_pas_apres_du_coup_je_lappelle_comme_ca,i,j);
+                jeton_v(grille,poi_v,pen_v,i,j);
                 vert_tab={poi_v,i,j};
                 ++vn;
                 int k;
@@ -49,5 +49,4 @@ void place_noir(grille_complete & grille,int & dp){
         }
         ++dp;
     }
-
 }

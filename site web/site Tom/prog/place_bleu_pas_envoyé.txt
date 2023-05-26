@@ -33,5 +33,4 @@ void place_bleu(grille_complete & grille,int & dn){
             }
         }
     }
-
 }

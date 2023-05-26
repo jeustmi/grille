@@ -17,17 +17,16 @@ td{
     width: 25px;
     height: 25px;
 }
+
 #menu{
-    background-color:  #6666ff; 
-    border-collapse: collapse;
+    background-color:  #6666ff;
     width: 100%;
     height: 5%;
-    
 }
+
 .colonne{
     text-align:center;
     font-size: 150%;
-
 }
 
 #centre{
@@ -43,9 +42,26 @@ td{
     display: inline;
     margin: 13%;
 }
+
+.grille{
+    background-color: #77b5fe;
+}
+
 .prog{
     position: relative; 
     overflow: hidden; 
-    padding-top: 2%; 
+}
 
+iframe{
+    height: 250px;
+    width: 70%;
+    background-color: #77b5fe;
+}
+
+.place_rouge{
+    height: 85px;
+}
+
+.struct{
+    height: 235px;
 }

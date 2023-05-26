@@ -44,5 +44,4 @@ void place_orange(grille_complete & grille,int & dn){ //place la meilleure posit
             fin=true;
         }
     }
-
 }

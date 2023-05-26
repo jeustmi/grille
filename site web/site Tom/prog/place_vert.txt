@@ -10,8 +10,6 @@ void compte_vert(grille_complete & grille, int *** val_comb_vert, mat_tri & vert
         for(int j=0;j<4096;++j){
             val_1comb[j]=new int[3];
         }
-        //mat2 val_1comb;
-        //val_1comb=val_comb_vert[0]; 
         for(int j=0;j<4+n;++j){ //on fait cette affectation pour garder en mémoire les pions deja enleves, on rajoutera par la suite celui qu'on enleve a cette boucle a la fin de val_comb_vert et on changera n en n+1 (pos 1) et le score en fonction (pos 0)
             for(int k=0;k<3;++k){
                 val_1comb[j][k]=val_comb_vert[0][j][k];
@@ -56,8 +54,7 @@ void compte_vert(grille_complete & grille, int *** val_comb_vert, mat_tri & vert
         for(int j=0;j<4096;++j){
             delete[] val_1comb[j];
         }
-        delete[] val_1comb;
-                
+        delete[] val_1comb;    
     }
     
     int j=val_comb_vert[1][2+n][2]; //on met le pion enleve donnant le plus grand score a la fin de notre liste pour pouvoir ne plus le compter après
@@ -133,7 +130,6 @@ void place_vert(grille_complete & grille){
             val_comb_vert[i][j]=new int[3];
         }
     }
-    //mat3 val_comb_vert;
     val_comb_vert[0][0][0]=poi-pen; //on initialise val_comb_vert
     val_comb_vert[0][0][1]=-2;
     val_comb_vert[0][0][2]=-2;
@@ -158,5 +154,4 @@ void place_vert(grille_complete & grille){
         delete[] val_comb_vert[j];
     }
     delete[] val_comb_vert;
-
 }

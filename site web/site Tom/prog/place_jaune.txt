@@ -31,5 +31,4 @@ void place_jaune(grille_complete & grille){
             grille.sl[i][j]='B';
         }
     }
-
 }

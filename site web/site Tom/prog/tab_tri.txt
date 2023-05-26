@@ -1,6 +1,4 @@
-#include tab_tri.hpp
-
-void init_tab_tri(grille_complete & grille){ initialise la matrice qui contient les valeur de la grille et leur indice
+void init_tab_tri(grille_complete & grille){ //initialise la matrice qui contient les valeur de la grille et leur indice
     int k=0;
 
     for(int i=0; igrille.n ; ++i){
@@ -11,7 +9,6 @@ void init_tab_tri(grille_complete & grille){ initialise la matrice qui contient 
             ++k;
         }
     }
-
 }
 
 void affiche_tab_tri(grille_complete grille){ affiche les valeur de la grille et leur indice
@@ -23,7 +20,6 @@ void affiche_tab_tri(grille_complete grille){ affiche les valeur de la grille et
             ++k;
         }
     }
-
 }
 
 void tri_selection(grille_complete & grille){  trie les valeur de la grille, selection
@@ -40,5 +36,4 @@ void tri_selection(grille_complete & grille){  trie les valeur de la grille, sel
         grille.vt[max] = grille.vt[grille.t-1-i];
         grille.vt[grille.t-1-i] =  aux;
     }
-    
 }
