@@ -1,0 +1,4 @@
+void placePionRouge(grille_complete & grille,int & dn){//place le pion rouge sur la case avec la plus petite valeur
+    grille.sl[grille.vt[0][1]][grille.vt[0][2]]='R';
+    ++dn;
+}
